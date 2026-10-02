@@ -1,0 +1,34 @@
+<Project Sdk="Godot.NET.Sdk/4.5.1">
+  <PropertyGroup>
+    <AssemblyName>baldurs_enemys</AssemblyName>
+    <RootNamespace>baldurs_enemys</RootNamespace>
+    <EnableDynamicLoading>True</EnableDynamicLoading>
+    <Nullable>enable</Nullable>
+    <TargetFramework>net90</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>13.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NoWarn>STS001;STS002</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.3.0" />
+    <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.1.9" />
+    <PackageReference Include="SmartFormat" Version="3.3.0" />
+  </ItemGroup>
+  <PropertyGroup>
+    <!-- sts2 一律解析"当前实际安装的游戏"，避免与陈旧副本不一致。
+         优先环境变量 STS2_DLL，其次已安装目录（当前该目录为 Steam 测试版），最后回退工作区内的 GameBeta 调试产物。 -->
+    <Sts2Dll Condition="'$(Sts2Dll)' == ''">$(STS2_DLL)</Sts2Dll>
+    <Sts2Dll Condition="'$(Sts2Dll)' == ''">F:\SteamLibrary\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\sts2.dll</Sts2Dll>
+    <Sts2Dll Condition="!Exists('$(Sts2Dll)')">$(MSBuildProjectDirectory)\..\..\GameBeta\.godot\mono\temp\bin\Debug\sts2.dll</Sts2Dll>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="sts2">
+      <HintPath>$(Sts2Dll)</HintPath>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\threeDLLs\0Harmony.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,44 @@
+# ===== Godot 引擎缓存与构建产物（约 125 MB，纯机器生成）=====
+# .godot/imported 是导入后的 .ctex 等二进制缓存，可由源 png/mp3 重新导入生成；
+# .godot/mono 是 C# 构建中间产物（含真正的 dll，也由 dotnet build 重建）。
+.godot/
+
+# Godot 导入元数据（*.import）：刻意【跟踪】。
+# 里面的 uid="uid://..." 是 Godot 资源 UID，res:// 路径引用依赖它；
+# [params] 段是人工调过的导入设置（如音频 loop/loop_offset）。排除会导致
+# 重新导入时 UID 变化、引用丢失。真正该忽略的是它指向的产物 .godot/imported/。
+#
+# export_presets.cfg 也刻意【跟踪】：它定义了打包参数（export_path / export_filter /
+# exclude_filter=*.cs），是 pack_baldurs_enemys.bat 的依据，丢了就无法打包。
+
+# ===== 打包产物（可由资源 + export_presets.cfg 重新生成，约 97 MB）=====
+# 用 pack_baldurs_enemys.bat / Godot --export-pack 重新产出。
+*.pck
+
+# ===== .NET / C# 构建产物 =====
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+
+# ===== 编辑器与操作系统噪声 =====
+.vs/
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# ===== 本地调试日志 =====
+*.log
+
+# ===== 说明 =====
+# 刻意【跟踪】以下内容（它们是 mod 本体，丢了无法恢复）：
+#   src/                C# 源码
+#   baldurs_enemys/     资源本体：music/（86 MB BGM）、images/（18 MB 立绘与图标）、
+#                       localization/、sounds/
+#   *.csproj / project.godot / baldurs_enemys.json / scenes/
+# 这些大文件让仓库体积约 105 MB，属于用体积换可追溯性，是有意为之。
+# 若日后需要瘦身，优先考虑用 Git LFS 存放 music/，而不是从版本控制里移除资源。

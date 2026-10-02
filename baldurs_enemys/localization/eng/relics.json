@@ -1,0 +1,8 @@
+{
+  "BALDURS_ENEMYS-DAMEAYLIN.title": "Dame Aylin",
+  "BALDURS_ENEMYS-DAMEAYLIN.description": "At the start of each combat, gain 3 Artifacts. At the start of your turn, roll 1d4 and gain that much Block.",
+  "BALDURS_ENEMYS-DAMEAYLIN.flavor": "The moonlight shall shield you, until your final breath.",
+  "BALDURS_ENEMYS-BALDURANS_GIANTSLAYER.title": "Balduran's Giantslayer",
+  "BALDURS_ENEMYS-BALDURANS_GIANTSLAYER.description": "At the start of each combat, roll for Strength: normal fights 1d4; elite fights 1d8; boss fights roll 2d20 and gain (sum/3) Strength (rounded down), plus an extra 1d20 Strength if either die shows a 20 (a second 20 does not roll again).",
+  "BALDURS_ENEMYS-BALDURANS_GIANTSLAYER.flavor": "The blade remains; the dragonslayer is gone."
+}

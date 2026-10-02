@@ -1,0 +1,156 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using BaseLib.Abstracts;
+using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Potions;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.Potions;
+using MegaCrit.Sts2.Core.Models.Relics;
+using baldurs_enemys.src.Powers;
+using baldurs_enemys.src.Relics;
+
+namespace baldurs_enemys.src.Cards;
+
+/// <summary>
+/// 「拾取」：1 费，消耗 + 虚无，战斗内生成的临时牌。
+///
+/// 就像在博德之门 3 里，回合制下花费一个动作拾取场地上的一件物品 ——
+/// 塔 2 不存在玩家方和敌方以外的中立/无行为物体，所以改成拾取敌人。
+///
+/// 注册进 TokenCardPool（原版 Shiv 同类）：Token 池只用于"效果生成"，从不出现在卡牌奖励/商店，
+/// 所以既能被 ModelDb 解析到，又不会被玩家抽到。
+///
+/// 效果（对没有"可被拾取"类 power 的敌人使用则没有任何效果 —— 但仍然消耗能量与卡牌、
+/// 仍然结束回合，与 BG3"花费一个动作"的语义一致）：
+/// - 可被拾取（油桶）：变成原版 aoe 爆炸药水（爆炸安瓿 ExplosiveAmpoule），敌人死亡；
+/// - 可被拾取·大（暗夜之歌）：第一次拾取只递减计数（无其他效果）；第二次拾取才真正触发：
+///   获得遗物「艾琳女士」；若目标带塞伦涅的庇佑，则清除所有玩家的死云术；
+/// - 人质（奥林 Boss 战）：变成原版遗物「布质果实」+「李家华夫饼」（人质死亡/被拾取
+///   同时触发奥林 +5 力量并进入杀戮者形态，见 BhaalsBlessingPower）；
+/// - 博德安的巨人杀手（安苏精英战）：变成遗物「博德安的巨人杀手」（死亡/被拾取同时
+///   触发安苏的「被背叛」，见 BetrayedPower）；
+/// - 无论哪种，成功触发拾取时目标死亡都是无条件的（force:true 绕过死亡防止）。
+/// </summary>
+[Pool(typeof(TokenCardPool))]
+public sealed class Pickup : CustomCardModel
+{
+    private const int CardEnergyCost = 1;
+
+    public Pickup() : base(CardEnergyCost, CardType.Skill, CardRarity.Token, TargetType.AnyEnemy, showInCardLibrary: false)
+    {
+    }
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+    [
+        CardKeyword.Exhaust,
+        CardKeyword.Ethereal
+    ];
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        Creature? target = cardPlay.Target;
+
+        if (target != null)
+        {
+            // 人质 / 巨人杀手：按怪物类型分流（两者都带可被拾取 power，
+            // 必须在普通拾取路径之前判定）。目标死亡本身会触发各自的 Boss 联动。
+            if (target.Monster is global::baldurs_enemys.src.Monsters.Hostage)
+            {
+                await PickUpHostage(target);
+            }
+            else if (target.Monster is Monsters.BalduransGiantslayer)
+            {
+                await PickUpGiantslayer(target);
+            }
+            else
+            {
+                PickpocketableBigPower? big = target.GetPower<PickpocketableBigPower>();
+                if (big != null)
+                {
+                    await PickUpBig(target, big);
+                }
+                else if (target.HasPower<PickpocketablePower>())
+                {
+                    await PickUpNormal(target);
+                }
+            }
+        }
+
+        // 只要打出这张牌就结束回合（无论是否有目标、是否成功、是否触发拾取）
+        PlayerCmd.EndTurn(base.Owner, canBackOut: false);
+    }
+
+    /// <summary>普通拾取（油桶）： suppress 死亡引爆 → 变成爆炸安瓿 → 击杀。</summary>
+    private async Task PickUpNormal(Creature target)
+    {
+        // 先打标记：本次死亡是被拾取的，不应触发「死亡引爆」
+        // （死亡钩子不带击杀者/来源参数，只能由拾取卡自行标记）
+        DeathExplosionPower? explosion = target.GetPower<DeathExplosionPower>();
+        if (explosion != null)
+        {
+            explosion.SuppressExplosion = true;
+        }
+
+        await PotionCmd.TryToProcure<ExplosiveAmpoule>(base.Owner);
+        await CreatureCmd.Kill(target, force: true);
+    }
+
+    /// <summary>
+    /// 拾取人质（奥林 Boss 战）：变成原版遗物「布质果实」+「李家华夫饼」→ 击杀。
+    /// 人质死亡/被拾取触发奥林 +5 力量并进入杀戮者形态（BhaalsBlessingPower.AfterDeath）。
+    /// </summary>
+    private async Task PickUpHostage(Creature target)
+    {
+        await RelicCmd.Obtain(ModelDb.Relic<LoomingFruit>().ToMutable(), base.Owner);
+        await RelicCmd.Obtain(ModelDb.Relic<LeesWaffle>().ToMutable(), base.Owner);
+        await CreatureCmd.Kill(target, force: true);
+    }
+
+    /// <summary>
+    /// 拾取博德安的巨人杀手（安苏精英战）：变成遗物「博德安的巨人杀手」→ 击杀。
+    /// 巨人杀手死亡/被拾取触发安苏的「被背叛」（BetrayedPower.AfterDeath）。
+    /// </summary>
+    private async Task PickUpGiantslayer(Creature target)
+    {
+        await RelicCmd.Obtain(ModelDb.Relic<BalduransGiantslayer>().ToMutable(), base.Owner);
+        await CreatureCmd.Kill(target, force: true);
+    }
+
+    /// <summary>
+    /// 大型拾取（暗夜之歌）：两次拾取才触发。第一次只递减计数；
+    /// 第二次：授予遗物「艾琳女士」→ 塞伦涅的庇佑清死云术 → 击杀。
+    /// </summary>
+    private async Task PickUpBig(Creature target, PickpocketableBigPower big)
+    {
+        if (big.Amount > 1)
+        {
+            // 第一次拾取：只消耗一层计数，不产生其他效果
+            await PowerCmd.Decrement(big);
+            return;
+        }
+
+        // 第二次拾取：真正触发
+        await RelicCmd.Obtain(ModelDb.Relic<DameAylin>().ToMutable(), base.Owner);
+
+        // 塞伦涅的庇佑：被拾取时清除所有玩家身上的死云术
+        if (target.HasPower<SelunesBlessingPower>())
+        {
+            List<Creature> players = target.CombatState?.Players
+                .Select(p => p.Creature)
+                .Where(c => c != null && c.HasPower<DeathCloudPower>())
+                .ToList() ?? new List<Creature>();
+            foreach (Creature player in players)
+            {
+                await PowerCmd.Remove<DeathCloudPower>(player);
+            }
+        }
+
+        await CreatureCmd.Kill(target, force: true);
+    }
+}
