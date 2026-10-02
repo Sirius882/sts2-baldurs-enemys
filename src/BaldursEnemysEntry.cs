@@ -107,9 +107,11 @@ public static class BaldursEnemysEntry
         _ = new TimedDebuffExpiryPower();
         _ = new SkeletonImbalancedPower();
 
-        // ---- 遗物（CustomRelicModel 构造时经 AddModel 登记；不注册进任何 RelicPoolModel，
-        //      所以唯一来源只能是拾取暗夜之歌 / 拾取巨人杀手）----
-        _ = new BaldursRelicPool(); // 私有池：仅满足 BaseLib PoolAttribute 校验，不入任何共享奖励池
+        // ---- 遗物（CustomRelicModel 构造时经 AddModel 登记；挂在 mod 专属池 BaldursRelicPool 上，
+        //      该池不参与任何随机掉落，唯一来源只能是拾取暗夜之歌 / 拾取巨人杀手）----
+        // 注意：BaldursRelicPool 内部 IsShared=>true 是【必须】的，否则图鉴会判定为「已锁定」。
+        //      详见该池类注释里的完整证据链。
+        _ = new BaldursRelicPool();
         _ = new DameAylin();
         _ = new global::baldurs_enemys.src.Relics.BalduransGiantslayer();
 

@@ -23,11 +23,14 @@ namespace baldurs_enemys.src.Relics;
 /// 效果（设计稿）：
 /// - 每场战斗开始时，获得 3 层人工制品（ArtifactPower）；
 /// - 持有该遗物时，每回合开始时掷 1d4，获得对应格挡（总则第5条：种子 RNG，多人/SL 一致）；
-/// - 持有者面对凯瑟里克·索姆 Boss 战时，伊索贝尔见面直接死亡（在 Isobel.AfterAddedToRoom 里实现）；
+/// - 持有者面对凯瑟里克·索姆 Boss 战时，伊索贝尔见面直接死亡（在本类 BeforeCombatStart 里实现，
+///   原因见该方法注释——绝不能放 Isobel.AfterAddedToRoom）；
 ///   洛若坎精英战的特殊效果待该战斗设计落地后补充。
 ///
-/// 唯一来源是拾取暗夜之歌：标注 [Pool(typeof(BaldursRelicPool))]（IsShared=false 的私有池，
-/// 不进任何共享奖励池，仅为满足 BaseLib 的 PoolAttribute 强制校验），再加 IsAllowedInShops=>false 双保险。
+/// 唯一来源是拾取暗夜之歌：标注 [Pool(typeof(BaldursRelicPool))]，该池是 mod 专属池
+/// （不参与任何随机掉落，理由见 BaldursRelicPool 类注释），再加 IsAllowedInShops=>false 双保险。
+/// 注意：BaldursRelicPool 必须是 IsShared=>true，否则图鉴里本遗物会永久显示为「已锁定」，
+/// 悬停只会弹出通用「已锁定」提示而非本遗物的说明。
 ///
 /// 图标：mod 自带美术（baldurs_enemys/images/relics/dame_aylin.png），经 RelicImageOverridePatch 接入。
 /// </summary>
