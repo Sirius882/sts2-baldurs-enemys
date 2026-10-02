@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using baldurs_enemys.src.Powers;
 
 namespace baldurs_enemys.src.Monsters;
 
@@ -19,7 +20,9 @@ namespace baldurs_enemys.src.Monsters;
 ///
 /// 数据/逻辑 1:1 复制自 GameBeta/src/Core/Models/Monsters/BowlbugRock.cs（2026-10-02 版）：
 /// - 血量 A10 46~49 / 低进阶 45~48；头槌 16/15；
-/// - 进场自带「失衡」(ImbalancedPower)：头槌后若自己失衡则眩晕一回合（DIZZY）；
+/// - 进场自带「失衡」：头槌后若自己失衡则眩晕一回合（DIZZY）。
+///   用 mod 自建的 SkeletonImbalancedPower 而非原版 ImbalancedPower —— 原版那个内部
+///   按 `is BowlbugRock` 分流，骷髅不满足会退化成真正的外部眩晕（详见该power 类注释）；
 /// - 美术：mod 自带立绘（baldurs_enemys/images/monsters/skeleton.png），
 ///   原先借用原版 bowlbug_rock 场景 + Spine 皮肤("rock") 的占位写法已随之移除
 ///   （静态贴图无 Spine，SetupSkins 覆写一并删除）。
@@ -65,7 +68,10 @@ public sealed class Skeleton : CustomMonsterModel
     public override async Task AfterAddedToRoom()
     {
         await base.AfterAddedToRoom();
-        await PowerCmd.Apply<ImbalancedPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+        // 用骷髅专用版「失衡」而非原版 ImbalancedPower：原版那个内部按
+        // `is BowlbugRock` 分流，骷髅不满足会退化成 CreatureCmd.Stun（真正的外部眩晕），
+        // 与原版「头槌后失衡 → 下一回合 DIZZY 发呆」的机制不等价。详见该power 的类注释。
+        await PowerCmd.Apply<SkeletonImbalancedPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
     }
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()

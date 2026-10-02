@@ -1,6 +1,6 @@
 {
   "BALDURS_ENEMYS-DAMEAYLIN.title": "艾琳女士",
-  "BALDURS_ENEMYS-DAMEAYLIN.description": "每场战斗开始时，获得 3 层人工制品。每回合开始时掷1d4，获得对应点数的格挡。",
+  "BALDURS_ENEMYS-DAMEAYLIN.description": "每场战斗开始时，获得 3 层人工制品。每回合开始时掷1d4，获得对应点数的格挡。战斗中若对手方有伊索贝尔，她会立刻死亡。",
   "BALDURS_ENEMYS-DAMEAYLIN.flavor": "月光会庇佑你，直到最后一刻。",
   "BALDURS_ENEMYS-BALDURANS_GIANTSLAYER.title": "博德安的巨人杀手",
   "BALDURS_ENEMYS-BALDURANS_GIANTSLAYER.description": "每场战斗开始时掷骰获得力量：普通战1d4点；精英战1d8点；Boss战掷2d20，获得(两骰之和/3)点力量（向下取整），若任意一骰骰出20，再掷1d20追加力量（第二次骰出20不再追加）。",

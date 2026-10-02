@@ -3,8 +3,8 @@
   "BALDURS_ENEMYS-PICKPOCKETABLE_POWER.description": "Can be picked up.",
   "BALDURS_ENEMYS-PICKPOCKETABLE_POWER.smartDescription": "Can be picked up.",
   "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.title": "Death Blast",
-  "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.description": "When defeated by anything other than being picked up, explodes: deals 1d4+7 damage to each player and damage equal to 1/(1d5) of max HP to each other enemy. (Each unit rolls separately.)",
-  "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.smartDescription": "When defeated by anything other than being picked up, explodes: deals 1d4+7 damage to each player and damage equal to 1/(1d5) of max HP to each other enemy. (Each unit rolls separately.)",
+  "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.description": "When defeated by anything other than being picked up, explodes: deals 1d4+7 damage to each player and damage equal to 1/(1d4+1) of max HP to each other enemy. (Each unit rolls separately.)",
+  "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.smartDescription": "When defeated by anything other than being picked up, explodes: deals 1d4+7 damage to each player and damage equal to 1/(1d4+1) of max HP to each other enemy. (Each unit rolls separately.)",
   "BALDURS_ENEMYS-GUARD_AURA_POWER.title": "Guard Aura",
   "BALDURS_ENEMYS-GUARD_AURA_POWER.description": "Gain 1d4+3 Block each turn, for 2 turns. (Each unit rolls separately each turn.)",
   "BALDURS_ENEMYS-GUARD_AURA_POWER.smartDescription": "Gain 1d4+3 Block each turn, for 2 turns. (Each unit rolls separately each turn.)",
@@ -55,5 +55,8 @@
   "BALDURS_ENEMYS-TIMED_DEBUFF_EXPIRY_POWER.smartDescription": "This debuff is removed when its stacks run out.",
   "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.title": "Oil Barrel Vulnerability",
   "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.description": "Damage taken from oil barrel explosions or Explosive Ampoules is tripled.",
-  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.smartDescription": "Damage taken from oil barrel explosions or Explosive Ampoules is tripled."
+  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.smartDescription": "Damage taken from oil barrel explosions or Explosive Ampoules is tripled.",
+  "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.title": "Imbalanced",
+  "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.description": "Becomes off balance when its Headbutt is fully blocked, and cannot act next turn.",
+  "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.smartDescription": "Becomes off balance when its Headbutt is fully blocked, and cannot act next turn."
 }

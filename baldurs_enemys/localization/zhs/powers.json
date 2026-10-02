@@ -3,8 +3,8 @@
   "BALDURS_ENEMYS-PICKPOCKETABLE_POWER.description": "可以被「拾取」。",
   "BALDURS_ENEMYS-PICKPOCKETABLE_POWER.smartDescription": "可以被「拾取」。",
   "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.title": "死亡引爆",
-  "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.description": "被「拾取」以外的方式击败时爆炸，对所有玩家各造成1d4+7点伤害，并对所有其他敌人各造成其最大生命值1/(1d5)的伤害。（每个单位分别掷骰）",
-  "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.smartDescription": "被「拾取」以外的方式击败时爆炸，对所有玩家各造成1d4+7点伤害，并对所有其他敌人各造成其最大生命值1/(1d5)的伤害。（每个单位分别掷骰）",
+  "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.description": "被「拾取」以外的方式击败时爆炸，对所有玩家各造成1d4+7点伤害，并对所有其他敌人各造成其最大生命值1/(1d4+1)的伤害。（每个单位分别掷骰）",
+  "BALDURS_ENEMYS-DEATH_EXPLOSION_POWER.smartDescription": "被「拾取」以外的方式击败时爆炸，对所有玩家各造成1d4+7点伤害，并对所有其他敌人各造成其最大生命值1/(1d4+1)的伤害。（每个单位分别掷骰）",
   "BALDURS_ENEMYS-GUARD_AURA_POWER.title": "守护灵光",
   "BALDURS_ENEMYS-GUARD_AURA_POWER.description": "每回合获得1d4+3点格挡，持续2回合。（每回合每单位分别掷骰）",
   "BALDURS_ENEMYS-GUARD_AURA_POWER.smartDescription": "每回合获得1d4+3点格挡，持续2回合。（每回合每单位分别掷骰）",
@@ -55,5 +55,8 @@
   "BALDURS_ENEMYS-TIMED_DEBUFF_EXPIRY_POWER.smartDescription": "层数归零时，该减益消失。",
   "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.title": "油桶易伤",
   "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.description": "受到来自油桶爆炸或爆炸安瓿的伤害变为3倍。",
-  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.smartDescription": "受到来自油桶爆炸或爆炸安瓿的伤害变为3倍。"
+  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.smartDescription": "受到来自油桶爆炸或爆炸安瓿的伤害变为3倍。",
+  "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.title": "失衡",
+  "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.description": "头槌被完全格挡时失去平衡，下一回合无法行动。",
+  "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.smartDescription": "头槌被完全格挡时失去平衡，下一回合无法行动。"
 }

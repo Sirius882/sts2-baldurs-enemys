@@ -105,6 +105,7 @@ public static class BaldursEnemysEntry
         _ = new KarsusCompulsionPower();
         _ = new BhaalsBlessingPower();
         _ = new TimedDebuffExpiryPower();
+        _ = new SkeletonImbalancedPower();
 
         // ---- 遗物（CustomRelicModel 构造时经 AddModel 登记；不注册进任何 RelicPoolModel，
         //      所以唯一来源只能是拾取暗夜之歌 / 拾取巨人杀手）----

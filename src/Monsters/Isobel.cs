@@ -15,7 +15,6 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using baldurs_enemys.src.Relics;
 
 namespace baldurs_enemys.src.Monsters;
 
@@ -28,7 +27,8 @@ namespace baldurs_enemys.src.Monsters;
 /// for 已展开 → 5×(攻击/强化) 线性链，然后攻击自环。
 ///
 /// 特殊：如果玩家持有遗物「艾琳女士」，伊索贝尔**见面直接死亡**
-/// （在 AfterAddedToRoom 里检查并击杀；凯瑟里克仍存活，战斗继续）。
+/// （由 <see cref="DameAylin.BeforeCombatStart"/> 在全部怪物入场完毕后执行；
+///  不能放在本类的 AfterAddedToRoom 里——详见该处注释）。
 ///
 /// 攻击 6 低进阶 = round(6/1.15) = 5；治疗/强化量不吃进阶缩放（原版口径）。
 /// </summary>
@@ -44,17 +44,11 @@ public sealed class Isobel : CustomMonsterModel
     public override NCreatureVisuals? CreateCustomVisuals() =>
         BaldurVisuals.Create("res://baldurs_enemys/images/monsters/isobel.png", 280);
 
-    public override async Task AfterAddedToRoom()
-    {
-        await base.AfterAddedToRoom();
-
-        // 「艾琳女士」持有者面前，伊索贝尔见面直接死亡（无条件 → force:true）
-        ICombatState? combatState = base.Creature.CombatState;
-        if (combatState != null && combatState.Players.Any(p => p.Relics.Any(r => r is DameAylin)))
-        {
-            await CreatureCmd.Kill(base.Creature, force: true);
-        }
-    }
+    // 「艾琳女士」的处决逻辑**不在这里**：本方法由 CombatManager.AfterCreatureAdded 调用，
+    // 其后引擎会无条件执行 `creature.Monster.RollMove(...)`（CombatManager.cs:1131-1133，不判存活）。
+    // 若在此处 Kill 自己，RollMove 会对已死怪物取状态机 → NullReferenceException，
+    // 表现为「带艾琳女士打凯瑟里克一进场就崩、无法进行游戏」。
+    // 实际处决由 DameAylin.BeforeCombatStart 负责（该钩子在全部怪物入场完毕后才跑）。
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {

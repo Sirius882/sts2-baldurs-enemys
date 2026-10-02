@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using baldurs_enemys.src.Core;
+using baldurs_enemys.src.Monsters;
 
 namespace baldurs_enemys.src.Relics;
 
@@ -62,5 +63,49 @@ public sealed class DameAylin : CustomRelicModel
         Flash();
         int block = Dice.Roll(combatState, 1, 4, 0);
         await CreatureCmd.GainBlock(base.Owner.Creature, block, ValueProp.Unpowered, null);
+    }
+
+    /// <summary>
+    /// 面对凯瑟里克·索姆 Boss 战时，伊索贝尔见面直接死亡（设计稿）。
+    ///
+    /// 为什么必须挂在 BeforeCombatStart 而不能挂在 Isobel.AfterAddedToRoom：
+    /// 引擎的 CombatManager.AfterCreatureAdded（CombatManager.cs:1128-1135）在
+    /// `await creature.AfterAddedToRoom()` 之后**无条件**执行 `creature.Monster.RollMove(...)`，
+    /// 且不检查该怪物是否已死。若在 AfterAddedToRoom 里 Kill 自己，RollMove 会对已死怪物取状态机 →
+    /// NullReferenceException，战斗直接崩掉（实测报错栈正是
+    /// MonsterModel.RollMove_Patch1 → AfterCreatureAdded → StartCombatInternal）。
+    ///
+    /// BeforeCombatStart 在 StartCombatInternal 中的调用点（:594）位于「全部怪物入场完毕」循环（:586-590）
+    /// 之后，此时所有 RollMove 都已执行完毕，此时处决伊索贝尔是安全的。
+    /// </summary>
+    public override async Task BeforeCombatStart()
+    {
+        ICombatState? combatState = base.Owner.Creature.CombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+
+        // 找本场战斗里的伊索贝尔（持有者自己也是玩家侧，不会命中）
+        List<Isobel> isobels = combatState.Enemies
+            .Where(c => c.IsAlive && c.Monster is Isobel)
+            .Select(c => c.Monster as Isobel)
+            .Where(m => m != null)
+            .ToList()!;
+
+        if (isobels.Count == 0)
+        {
+            return;
+        }
+
+        foreach (Isobel isobel in isobels)
+        {
+            Creature creature = isobel.Creature;
+            if (creature != null && creature.IsAlive)
+            {
+                // 无条件处决（force:true，跳过"是否会被击杀"的判定）
+                await CreatureCmd.Kill(creature, force: true);
+            }
+        }
     }
 }
