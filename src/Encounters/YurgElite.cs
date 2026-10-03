@@ -10,7 +10,7 @@ namespace baldurs_enemys.src.Encounters;
 /// <summary>
 /// 「尤格」精英战（第二层精英池）：单怪。
 ///
-/// - catch=false：本场不发「拾取」卡（不实现 ICatchEncounter）。
+/// - catch=false：本场不发「交互」卡（不实现 ICatchEncounter）。
 /// - 单怪、无自定义场景（不设 CustomScenePath）→ 走引擎默认排位，与原版 TestSubjectBoss 同款处理。
 /// - 无自定义背景 → 用第二层默认背景。
 /// </summary>

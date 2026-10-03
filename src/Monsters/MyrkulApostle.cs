@@ -19,17 +19,17 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 「死亡之神的面容」米尔寇的使徒（A10 血量 250，低进阶 238）。第二层 Boss（单怪战）。
+/// 「死亡之神的面容」米尔寇的使徒（A10 血量 450，低进阶 428）。第二层 Boss（单怪战）。
 ///
-/// 原稿状态机（id20 = 掷 i 个 d20，用户口径：i==3 时 id20 就是 3d20）：
-///   int i=0;
+/// 原稿状态机（id20 =掷 i 个 d20，用户口径：i==3 时 id20 就是 3d20）：
+///   int i=2;                          // ← 2026-10-03 设计稿「有改动」：初始值由 0 改为 2
 ///   while(true)
 ///   {
 ///       for(j=1;j<=3;j++)
 ///       {
 ///           攻击(5+j)*2;
 ///           攻击3*j;
-///           回血id20;      // 掷 i 个 d20 的总血量；i 初始 0 → 首轮不回血
+///           回血id20;      // 掷 i 个 d20 的总血量
 ///       }
 ///       i += 2;
 ///       强化获得2力量;
@@ -41,7 +41,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class MyrkulApostle : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 250, 238);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 450, 428);
 
     public override int MaxInitialHp => MinInitialHp;
 
@@ -51,7 +51,11 @@ public sealed class MyrkulApostle : BaldurMonsterModel
     public override NCreatureVisuals? CreateCustomVisuals() =>
         BaldurVisuals.Create("res://baldurs_enemys/images/monsters/myrkul_apostle.png", 330);
 
-    private int _healDice;
+    /// <summary>
+    /// 回血骰数 i。C++ 语义：`int i=2`（2026-10-03 设计稿改动，原为 0）——
+    /// 所以**战斗一开始每次回血就掷 2d20**，首个外层循环三次回血都是 2d20。
+    /// </summary>
+    private int _healDice = 2;
 
     private int HealDice
     {

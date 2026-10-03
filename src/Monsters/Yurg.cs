@@ -19,15 +19,15 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 尤格（A10 血量 156，低进阶 150）。第二层精英。
+/// 尤格（A10 血量 208，低进阶 198）。第二层精英。
 ///
 /// 逻辑 = 原版三层 Boss「实验体」(TestSubject) 的第三阶段招式循环：
 ///   while(true) { 撕碎(3段) → 大力猛扑 → 燃烧之吼 }
 /// 燃烧之吼：向玩家弃牌堆塞灼烧，并给自己加力量。
 ///
-/// 用户裁决（2026-10-02）：
-/// - 伤害向下取整减半：撕碎 A10 11→5（低进阶 10→5，相同）、猛扑 45→22（不吃进阶）；
-///   血量为实验体三阶段 A10 313→156（低进阶 300→150）。
+/// 用户裁决（2026-10-03，设计稿标注「有改动」，把「减半」改为「减为 2/3」）：
+/// - 伤害向下取整按 2/3：撕碎 A10 11→7（低进阶 10→6）、猛扑 45→30（不吃进阶）；
+///   血量为实验体三阶段 A10 313→208（低进阶 300→198）。
 /// - 灼烧张数与力量加成**不减半**，照抄原版进阶规则（灼烧 A10=5/低=3，力量 A10=3/低=2）。
 /// - 进场自带 NemesisPower（复仇之力：每隔一个敌方回合结束获得 1 回合无敌），
 ///   与实验体进入第三阶段时一致。
@@ -37,7 +37,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class Yurg : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 156, 150);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 208, 198);
 
     public override int MaxInitialHp => MinInitialHp;
 
@@ -47,11 +47,11 @@ public sealed class Yurg : BaldurMonsterModel
     public override NCreatureVisuals? CreateCustomVisuals() =>
         BaldurVisuals.Create("res://baldurs_enemys/images/monsters/yurg.png", 330);
 
-    /// <summary>实验体撕碎 A10=11 → floor(11/2)=5（低进阶 10→5，相同）。</summary>
-    private int LacerateDamage => 5;
+    /// <summary>实验体撕碎 A10=11 → floor(11×2/3)=7（低进阶 10→floor(10×2/3)=6）。</summary>
+    private int LacerateDamage => 7;
 
-    /// <summary>实验体大力猛扑 45（不吃进阶）→ floor(45/2)=22。</summary>
-    private int BigPounceDamage => 22;
+    /// <summary>实验体大力猛扑 45（不吃进阶）→ floor(45×2/3)=30。</summary>
+    private int BigPounceDamage => 30;
 
     /// <summary>灼烧张数：不减半，照抄原版进阶规则。</summary>
     private int BurningGrowlBurnCount => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 3);

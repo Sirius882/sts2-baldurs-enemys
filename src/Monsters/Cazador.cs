@@ -19,7 +19,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 「吸血鬼领主」卡扎多尔·扎尔（A10 血量 140，低进阶 133）。第三层精英，两侧各一蝙蝠。
+/// 「吸血鬼领主」卡扎多尔·扎尔（A10 血量 220，低进阶 209）。第三层精英，两侧各一蝙蝠。
 ///
 /// 原稿状态机：
 ///   强化：获得鲜血盛宴;
@@ -32,7 +32,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class Cazador : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 140, 133);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 220, 209);
 
     public override int MaxInitialHp => MinInitialHp;
 

@@ -18,13 +18,13 @@ namespace baldurs_enemys.src.Monsters;
 /// <summary>
 /// 地精·远程（A10 血量 45，低进阶 42 = floor(45/1.05)）。
 ///
-/// 原稿状态机（2026-10-02 修订版）：while{ 攻击3 → 攻击3 → 自己眩晕 → 强化+1力量 }
+/// 原稿状态机（2026-10-03 修订版，设计稿标注「有改动」）：while{ 攻击5 → 攻击5 → 自己眩晕 → 强化+1力量 }
 /// 「自己眩晕」是"这回合不行动"，不是被外部眩晕 —— 所以实现为一个 onPerform 为空、
 /// 意图为 StunIntent 的 MoveState（照抄原版 Wriggler 的 SPAWNED_MOVE 写法），
 /// 而**不是** CreatureCmd.Stun（那是给"被外部眩晕"用的，缺省语义是重复上一次已执行的行动，与本设计不等价）。
 ///
-/// 进阶换算（DeadlyEnemies 比例 /1.15 四舍五入）：攻击3 → 3/1.15=2.6 → 3（不变）。
-/// 四招循环 → 它每 4 回合只打 6 点，配 45 血，仍是偏辅助的输出源。
+/// 进阶换算（DeadlyEnemies 比例 /1.15 四舍五入）：攻击5 → 5/1.15=4.3 → 4。
+/// 四招循环 → 它每 4 回合只打 10 点，配 45 血，仍是偏辅助的输出源。
 /// </summary>
 public sealed class GoblinRanged : BaldurMonsterModel
 {
@@ -38,7 +38,7 @@ public sealed class GoblinRanged : BaldurMonsterModel
     public override NCreatureVisuals? CreateCustomVisuals() =>
         BaldurVisuals.Create("res://baldurs_enemys/images/monsters/goblin_ranged.png", 260);
 
-    private int ShootDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 3, 3);
+    private int ShootDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 4);
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {

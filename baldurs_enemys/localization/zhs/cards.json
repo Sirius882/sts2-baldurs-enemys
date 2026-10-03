@@ -1,4 +1,4 @@
 {
-  "BALDURS_ENEMYS-PICKUP.title": "拾取",
-  "BALDURS_ENEMYS-PICKUP.description": "使一个「可被拾取」的敌人死亡，并将其收入你的行囊。\n结束你的回合。"
+  "BALDURS_ENEMYS-INTERACT.title": "交互",
+  "BALDURS_ENEMYS-INTERACT.description": "使一个「可被交互」的敌人死亡，并将其收入你的行囊。\n结束你的回合。"
 }

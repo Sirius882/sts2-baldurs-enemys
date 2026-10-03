@@ -20,7 +20,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 「博德之门大公爵候选人」恩维尔·戈塔什大人（A10 血量 320，低进阶 304）。
+/// 「博德之门大公爵候选人」恩维尔·戈塔什大人（A10 血量 510，低进阶 485）。
 /// 第三层 Boss，两侧各一钢铁卫士。
 ///
 /// 原稿状态机：
@@ -37,7 +37,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class Gortash : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 320, 304);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 510, 485);
 
     public override int MaxInitialHp => MinInitialHp;
 

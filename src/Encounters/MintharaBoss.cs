@@ -42,7 +42,7 @@ public sealed class MintharaBoss : CustomEncounterModel, ICatchEncounter
 
     public override string? CustomRunHistoryIconOutlinePath => BossNodePath + "_outline.png";
 
-    /// <summary>本场战斗会发「拾取」卡。</summary>
+    /// <summary>本场战斗会发「交互」卡。</summary>
     public bool CatchEnabled => true;
 
     public MintharaBoss() : base(RoomType.Boss)

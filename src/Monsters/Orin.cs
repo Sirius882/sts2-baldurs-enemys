@@ -21,7 +21,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 「巴尔死亡使者」奥林（A10 血量 320，低进阶 304）。第三层 Boss，身旁是人质。
+/// 「巴尔死亡使者」奥林（A10 血量 480，低进阶 457）。第三层 Boss，身旁是人质。
 ///
 /// 原稿状态机：
 ///   int i=0;
@@ -43,11 +43,11 @@ namespace baldurs_enemys.src.Monsters;
 /// i 计数实现口径（条件会被预测重复求值，自增只能放执行体）：
 /// 「敏捷-1」执行体末尾 i += 1；break 条件改为等价写法 i >= 4（C++ 原稿 4 次循环：
 /// i=0,1,2 通过、i=3 break —— 自增提前后判 i>=4 完全等价）。
-/// 人质中途死亡/被拾取 → 两个 while 条件与循环内分支同时收敛到 EMPOWER。
+/// 人质中途死亡/被交互 → 两个 while 条件与循环内分支同时收敛到 EMPOWER。
 /// </summary>
 public sealed class Orin : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 320, 304);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 480, 457);
 
     public override int MaxInitialHp => MinInitialHp;
 
@@ -66,7 +66,7 @@ public sealed class Orin : BaldurMonsterModel
 
     /// <summary>
     /// 切换到杀戮者形态立绘。由 <see cref="baldurs_enemys.src.Powers.BhaalsBlessingPower.EnterSlayerForm"/>
-    /// 触发（转阶段 +3 力量 / 人质死亡或被拾取）。视觉节点不存在（尚未进场/已离场）时静默跳过。
+    /// 触发（转阶段 +3 力量 / 人质死亡或被交互）。视觉节点不存在（尚未进场/已离场）时静默跳过。
     /// </summary>
     public void ShowSlayerForm()
     {

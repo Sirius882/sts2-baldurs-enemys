@@ -21,7 +21,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 钢铁卫士（A10 血量 70，低进阶 66）。戈塔什 Boss 战的护卫 construct。
+/// 钢铁卫士（A10 血量 67，低进阶 63）。戈塔什 Boss 战的护卫 construct。
 ///
 /// 原稿状态机：while(true) { 攻击6*1; 攻击5*2; 攻击3*3; }
 ///
@@ -32,7 +32,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class SteelWatcher : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 70, 66);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 67, 63);
 
     public override int MaxInitialHp => MinInitialHp;
 

@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Relics;
 
 /// <summary>
-/// 「博德安的巨人杀手」：拾取安苏战巨剑的唯一产物。
+/// 「博德安的巨人杀手」：交互安苏战巨剑的唯一产物。
 ///
 /// 效果（设计稿）：每场战斗开始时掷骰获得力量——
 /// - 普通战：1d4 力量；
@@ -23,7 +23,7 @@ namespace baldurs_enemys.src.Relics;
 /// - Boss 战：2d20/3 力量（两骰之和 ÷3 向下取整），且若任意一骰骰出 20，再掷 1d20 追加力量
 ///   （第二次再出 20 不继续）。
 ///
-/// 唯一来源是拾取博德安的巨人杀手：标注 [Pool(typeof(BaldursRelicPool))]，该池是 mod 专属池
+/// 唯一来源是交互博德安的巨人杀手：标注 [Pool(typeof(BaldursRelicPool))]，该池是 mod 专属池
 /// （不参与任何随机掉落，理由见 BaldursRelicPool 类注释）+ IsAllowedInShops=>false 双保险。
 /// 注意：BaldursRelicPool 必须是 IsShared=>true，否则图鉴里本遗物会永久显示为「已锁定」。
 /// 图标：与怪物本体共用 mod 自带美术（baldurs_enemys/images/relics/baldurans_giantslayer.png）。

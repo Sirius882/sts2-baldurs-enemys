@@ -19,20 +19,20 @@ using baldurs_enemys.src.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 「夜影守望者」明萨拉（A10 血量 200，低进阶 190 = floor(200/1.05)）。第一层 Boss。
+/// 「夜影守望者」明萨拉（A10 血量 300，低进阶 285 = floor(300/1.05)）。第一层 Boss。
 ///
-/// 原稿状态机（2026-10-02 修订版）：
+/// 原稿状态机（2026-10-03 修订版，设计稿标注「有改动」）：
 ///   while(true) {
 ///     for i in range(2) {
 ///       守护灵光; 勇气灵光;
 ///       if(两地精死) break;
-///       攻击10; 强化+2力量;
+///       攻击15; 强化+2力量;
 ///       if(两地精死) break;
 ///     }
-///     攻击25;
+///     攻击30;
 ///     if(两地精死) break;
 ///   }
-///   while(true) { 攻击25; 强化+1力量; }
+///   while(true) { 攻击30; 强化+1力量; }
 ///
 /// 执行口径（总则：有实际动作的语句占 1 回合，纯逻辑语句瞬时求值；按严格 C++ 语义展开）：
 /// - for 内的 break 只跳出 for，落到 for 之后的第一条语句（攻击25）；while 末尾的 break
@@ -45,7 +45,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class Minthara : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 200, 190);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 300, 285);
 
     public override int MaxInitialHp => MinInitialHp;
 
@@ -55,11 +55,11 @@ public sealed class Minthara : BaldurMonsterModel
     public override NCreatureVisuals? CreateCustomVisuals() =>
         BaldurVisuals.Create("res://baldurs_enemys/images/monsters/minthara.png", 330);
 
-    /// <summary>攻击10：低进阶 10/1.15=8.7 → 9。</summary>
-    private int SlamDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 10, 9);
+    /// <summary>攻击15：低进阶 15/1.15=13.0 → 13。</summary>
+    private int SlamDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 15, 13);
 
-    /// <summary>攻击25：低进阶 25/1.15=21.7 → 22。</summary>
-    private int SlamBigDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 25, 22);
+    /// <summary>攻击30：低进阶 30/1.15=26.1 → 26。</summary>
+    private int SlamBigDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 30, 26);
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {

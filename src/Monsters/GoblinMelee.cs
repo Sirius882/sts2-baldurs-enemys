@@ -19,12 +19,12 @@ namespace baldurs_enemys.src.Monsters;
 /// <summary>
 /// 地精·近战（A10 血量 60，低进阶 57 = floor(60/1.05)）。
 ///
-/// 原稿状态机（2026-10-02 修订版）：
-///   攻击3 → 攻击5 → 强化+1力量 → 攻击3 → 攻击5 → 强化+1力量 → while{ 攻击3 → 攻击5 }
+/// 原稿状态机（2026-10-03 修订版，设计稿标注「有改动」）：
+///   攻击5 → 攻击7 → 强化+1力量 → 攻击5 → 攻击7 → 强化+1力量 → while{ 攻击5 → 攻击7 }
 /// `for` 已在编译期展开，所以是 8 个 MoveState 的线性链，最后两节点互相成环。
 ///
-/// 进阶换算（DeadlyEnemies 比例 /1.15 四舍五入）：攻击3 → 3/1.15=2.6 → 3（不变）；
-/// 攻击5 → 5/1.15=4.3 → 4。
+/// 进阶换算（DeadlyEnemies 比例 /1.15 四舍五入）：攻击5 → 5/1.15=4.3 → 4；
+/// 攻击7 → 7/1.15=6.1 → 6。
 /// </summary>
 public sealed class GoblinMelee : BaldurMonsterModel
 {
@@ -38,9 +38,9 @@ public sealed class GoblinMelee : BaldurMonsterModel
     public override NCreatureVisuals? CreateCustomVisuals() =>
         BaldurVisuals.Create("res://baldurs_enemys/images/monsters/goblin_melee.png", 260);
 
-    private int HackDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 3, 3);
+    private int HackDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 4);
 
-    private int JabDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 4);
+    private int JabDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 7, 6);
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {

@@ -9,8 +9,8 @@ namespace baldurs_enemys.src.Encounters;
 
 /// <summary>
 /// 「博德之心」安苏精英战（第三层精英池）：[安苏, 博德安的巨人杀手]。
-/// catch=true：本场发「拾取」卡，可拾取目标是巨人杀手（→ 遗物「博德安的巨人杀手」），
-/// 但巨人杀手死亡（含被拾取）会触发安苏的「被背叛」（+5 力量 + 半血自伤并转 6 连轻击）。
+/// catch=true：本场发「交互」卡，可交互目标是巨人杀手（→ 遗物「博德安的巨人杀手」），
+/// 但巨人杀手死亡（含被交互）会触发安苏的「被背叛」（+5 力量 + 半血自伤并转 6 连轻击）。
 /// </summary>
 public sealed class AnsurElite : CustomEncounterModel, ICatchEncounter
 {

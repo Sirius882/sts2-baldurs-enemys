@@ -20,7 +20,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 君主（A10 血量 100，低进阶 95）。第三层 Boss，两侧各一梦境守护者。
+/// 君主（A10 血量 140，低进阶 133）。第三层 Boss，两侧各一梦境守护者。
 /// 血量极低但有大杀器——本场是"在落雷前斩首"的竞速。
 ///
 /// 原稿状态机：
@@ -43,7 +43,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class Emperor : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 100, 95);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 140, 133);
 
     public override int MaxInitialHp => MinInitialHp;
 

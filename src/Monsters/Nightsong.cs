@@ -22,10 +22,10 @@ namespace baldurs_enemys.src.Monsters;
 /// onPerform 为空 + StunIntent）。
 ///
 /// 附带 power（AfterAddedToRoom 施加）：
-/// - 可被拾取·大：需要两次「拾取」才触发拾取效果（Counter = 2，逻辑在拾取卡里）；
-/// - 塞伦涅的庇佑：被拾取成功时清除所有玩家的死云术（标记，效果在拾取卡里）。
+/// - 可被交互·大：需要两次「交互」才触发交互效果（Counter = 2，逻辑在交互卡里）；
+/// - 塞伦涅的庇佑：被交互成功时清除所有玩家的死云术（标记，效果在交互卡里）。
 ///
-/// 被拾取成功后变成遗物「艾琳女士」（见 DameAylin）。
+/// 被交互成功后变成遗物「艾琳女士」（见 DameAylin）。
 /// 美术占位：原版神秘骑士（mysterious_knight，甲胄人形体量感接近）。
 /// </summary>
 public sealed class Nightsong : BaldurMonsterModel
@@ -43,8 +43,8 @@ public sealed class Nightsong : BaldurMonsterModel
     public override async Task AfterAddedToRoom()
     {
         await base.AfterAddedToRoom();
-        await PowerCmd.Apply<PickpocketableBigPower>(
-            new ThrowingPlayerChoiceContext(), base.Creature, PickpocketableBigPower.PickupsRequired, base.Creature, null);
+        await PowerCmd.Apply<InteractableBigPower>(
+            new ThrowingPlayerChoiceContext(), base.Creature, InteractableBigPower.InteractionsRequired, base.Creature, null);
         await PowerCmd.Apply<SelunesBlessingPower>(
             new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
     }

@@ -20,9 +20,9 @@ using baldurs_enemys.src.MonsterMoves;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 凯瑟里克·索姆（A10 血量 300，低进阶 285 = floor(300/1.05)）。第二层 Boss。
+/// 凯瑟里克·索姆（A10 血量 400，低进阶 380 = floor(400/1.05)）。第二层 Boss。
 ///
-/// 原稿状态机（2026-10-02 版）：
+/// 原稿状态机（2026-10-03 修订版，设计稿标注「有改动」）：
 ///   while(伊索贝尔存活)
 ///   {
 ///       攻击13*1;
@@ -33,28 +33,28 @@ namespace baldurs_enemys.src.Monsters;
 ///   while(true)
 ///   {
 ///       i += 1;
-///       攻击(i+3)*3;
-///       自己眩晕;
-///       攻击(i+3)*2;
+///       攻击(i+1)*3;
+///       强化获得1力量;          // ← 原为「自己眩晕」，本次改稿替换
+///       攻击(i+1)*2;
 ///   }
 ///
 /// 执行口径（总则：实际动作占 1 回合；i 的定义/累加是纯逻辑）：
 /// - while 条件在每次循环顶求值 → 每招之后各一个分支节点（伊索贝尔存活 → 继续，死亡 → 落到强化）；
 ///   入口也有一个分支（若玩家持有艾琳女士，伊索贝尔开场即死 → 直接跳过第一阶段，与 C++ 首次条件判断一致）；
-/// - 二阶段回合序列：i=1 → 攻击4×3 → 眩晕 → 攻击4×2 → i=2 → 攻击5×3 → 眩晕 → 攻击5×2 → ……
-///   伤害每整循环 +1，攻击(i+3) 的 i 在两段攻击中同值。
+/// - 二阶段回合序列：i=1 → 攻击2×3 → 强化+1力量 → 攻击2×2 → i=2 → 攻击3×3 → 强化+1力量 → 攻击3×2 → ……
+///   伤害每整循环 +1，攻击(i+1) 的 i 在两段攻击中同值。
 ///
 /// 实现注记（与巴萨扎尔同因）：ConditionalBranchState 条件会被重复求值，所以 i 的自增
-/// 放在「攻击(i+3)*3」的执行体开头；意图 lambda 补偿：
-/// - 第一段攻击意图 = (i+1)+3 = i+4（预测时 i 尚未自增）；
-/// - 第二段攻击意图 = i+3（中间隔着眩晕招，预测发生在自增之后）。
+/// 放在「攻击(i+1)*3」的执行体开头；意图 lambda 补偿：
+/// - 第一段攻击意图 = (i+1)+1 = i+2（预测时 i 尚未自增）；
+/// - 第二段攻击意图 = i+1（中间隔着强化招，预测发生在自增之后）。
 ///
 /// 攻击 13 → 低进阶 11（round(13/1.15)）；攻击 4 → 3；二阶段动态伤害同样按 round(值/1.15)。
 /// 强化量不吃进阶缩放。
 /// </summary>
 public sealed class KethericThorm : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 300, 285);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 400, 380);
 
     public override int MaxInitialHp => MinInitialHp;
 
@@ -92,10 +92,10 @@ public sealed class KethericThorm : BaldurMonsterModel
         // ---- 转阶段 ----
         MoveState empower = new("EMPOWER", EmpowerMove, new BuffIntent());
 
-        // ---- 第二阶段：i += 1 → 攻击(i+3)*3 → 眩晕 → 攻击(i+3)*2 ----
-        MoveState reap = new("REAP", ReapMove, new DynamicMultiAttackIntent(() => Balthazar.ScaleDeadly(ReapIndex + 4), 3));
-        MoveState recover = new("RECOVER", RecoverMove, new StunIntent());
-        MoveState reap2 = new("REAP2", Reap2Move, new DynamicMultiAttackIntent(() => Balthazar.ScaleDeadly(ReapIndex + 3), 2));
+        // ---- 第二阶段：i += 1 → 攻击(i+1)*3 → 强化+1力量 → 攻击(i+1)*2 ----
+        MoveState reap = new("REAP", ReapMove, new DynamicMultiAttackIntent(() => Balthazar.ScaleDeadly(ReapIndex + 2), 3));
+        MoveState empower1 = new("EMPOWER1", Empower1Move, new BuffIntent());
+        MoveState reap2 = new("REAP2", Reap2Move, new DynamicMultiAttackIntent(() => Balthazar.ScaleDeadly(ReapIndex + 1), 2));
 
         entry.AddState(smash, IsobelAlive);
         entry.AddState(empower, () => true);
@@ -109,20 +109,20 @@ public sealed class KethericThorm : BaldurMonsterModel
         postBarrage.AddState(empower, () => true);
 
         empower.FollowUpState = reap;
-        reap.FollowUpState = recover;
-        recover.FollowUpState = reap2;
+        reap.FollowUpState = empower1;
+        empower1.FollowUpState = reap2;
         reap2.FollowUpState = reap;
 
         List<MonsterState> states =
         [
             entry, smash, postSmash, barrage, postBarrage,
-            empower, reap, recover, reap2
+            empower, reap, empower1, reap2
         ];
         return new MonsterMoveStateMachine(states, entry);
     }
 
     protected override bool ShouldShowMoveInBestiary(string moveStateId) =>
-        moveStateId is "SMASH" or "BARRAGE" or "EMPOWER" or "REAP" or "REAP2" or "RECOVER";
+        moveStateId is "SMASH" or "BARRAGE" or "EMPOWER" or "REAP" or "REAP2" or "EMPOWER1";
 
     /// <summary>「伊索贝尔存活」：按类型找活着的伊索贝尔；找不到（不应发生）按死亡处理，避免状态机卡死。</summary>
     private bool IsobelAlive()
@@ -164,13 +164,13 @@ public sealed class KethericThorm : BaldurMonsterModel
     }
 
     /// <summary>
-    /// 攻击(i+3)*3：执行时先 i += 1，再攻击 (i+3)×3。
-    /// A10 值 = i+3；低进阶 = round(值/1.15)。
+    /// 攻击(i+1)*3：执行时先 i += 1，再攻击 (i+1)×3。
+    /// A10 值 = i+1；低进阶 = round(值/1.15)。
     /// </summary>
     private async Task ReapMove(IReadOnlyList<Creature> targets)
     {
         ReapIndex += 1;
-        int damage = ReapIndex + 3;
+        int damage = ReapIndex + 1;
         await DamageCmd.Attack(Balthazar.ScaleDeadly(damage)).WithHitCount(3).FromMonster(this)
             .OnlyPlayAnimOnce()
             .WithAttackerAnim("MultiAttackTrigger", 0.2f)
@@ -178,17 +178,24 @@ public sealed class KethericThorm : BaldurMonsterModel
             .Execute(null);
     }
 
-    /// <summary>攻击(i+3)*2：i 不再自增（与同循环第一段攻击同值）。</summary>
+    /// <summary>
+    /// 强化获得 1 力量（固定值，不吃进阶缩放）。
+    /// 2026-10-03 设计稿改动：此处原为「自己眩晕」（StunIntent），现改为 +1 力量。
+    /// </summary>
+    private async Task Empower1Move(IReadOnlyList<Creature> targets)
+    {
+        await CreatureCmd.TriggerAnim(base.Creature, "Cast", 0.2f);
+        await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+    }
+
+    /// <summary>攻击(i+1)*2：i 不再自增（与同循环第一段攻击同值）。</summary>
     private async Task Reap2Move(IReadOnlyList<Creature> targets)
     {
-        int damage = ReapIndex + 3;
+        int damage = ReapIndex + 1;
         await DamageCmd.Attack(Balthazar.ScaleDeadly(damage)).WithHitCount(2).FromMonster(this)
             .OnlyPlayAnimOnce()
             .WithAttackerAnim("MultiAttackTrigger", 0.2f)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(null);
     }
-
-    /// <summary>自己眩晕：这回合不行动（设计稿明确的意图，非被外部眩晕）。</summary>
-    private Task RecoverMove(IReadOnlyList<Creature> targets) => Task.CompletedTask;
 }

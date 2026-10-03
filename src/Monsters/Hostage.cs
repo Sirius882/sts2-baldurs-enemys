@@ -19,10 +19,10 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 人质（A10 血量 12，低进阶 11）。奥林 Boss 战的可拾取物。
+/// 人质（A10 血量 12，低进阶 11）。奥林 Boss 战的可交互物。
 ///
-/// 被拾取后变成原版遗物「布质果实」+「李家华夫饼」（在拾取卡里实现）；
-/// 人质死亡或被拾取时，奥林获得 5 力量并进入狂怒（见 BhaalsBlessingPower.AfterDeath）。
+/// 被交互后变成原版遗物「布质果实」+「李家华夫饼」（在交互卡里实现）；
+/// 人质死亡或被交互时，奥林获得 5 力量并进入狂怒（见 BhaalsBlessingPower.AfterDeath）。
 /// </summary>
 public sealed class Hostage : BaldurMonsterModel
 {
@@ -32,7 +32,7 @@ public sealed class Hostage : BaldurMonsterModel
 
     public override DamageSfxType TakeDamageSfxType => DamageSfxType.Fur;
 
-    /// <summary>留尸：死亡后本体不淡出（可拾取物口径，同油桶）。</summary>
+    /// <summary>留尸：死亡后本体不淡出（可交互物口径，同油桶）。</summary>
     public override bool ShouldFadeAfterDeath => false;
 
     /// <summary>美术：mod 自带立绘（baldurs_enemys/images/monsters/hostage.png）。</summary>
@@ -42,7 +42,7 @@ public sealed class Hostage : BaldurMonsterModel
     public override async Task AfterAddedToRoom()
     {
         await base.AfterAddedToRoom();
-        await PowerCmd.Apply<PickpocketablePower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+        await PowerCmd.Apply<InteractablePower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
     }
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()

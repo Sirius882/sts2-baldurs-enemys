@@ -6,7 +6,7 @@ namespace baldurs_enemys.src.Relics;
 /// mod 私有遗物池。
 ///
 /// 存在目的：新版 BaseLib 要求每个 CustomRelicModel 必须标 [Pool(池类型)]，
-/// 否则 ModelDb 初始化直接抛异常。艾琳女士 / 博德安的巨人杀手的唯一来源是「拾取」，
+/// 否则 ModelDb 初始化直接抛异常。艾琳女士 / 博德安的巨人杀手的唯一来源是「交互」，
 /// 不能进任何会掉落的池——所以给它们挂这个专属池。
 ///
 /// 【2026-10-03 重要修正】本池必须 IsShared =&gt; true，否则图鉴里两款遗物永远显示为「已锁定」。
@@ -46,7 +46,7 @@ public class BaldursRelicPool : CustomRelicPoolModel
     public override bool IsShared => true;
 
     /// <summary>
-    /// 图鉴默认标记为「已见过」。这两款遗物只能靠特定拾取卡获得，若保持未发现状态，
+    /// 图鉴默认标记为「已见过」。这两款遗物只能靠特定交互卡获得，若保持未发现状态，
     /// 玩家在图鉴里点开只能看到 UnknownHoverTip（通用「未知遗物」提示），
     /// 仍然读不到实际效果说明——等同于没有说明文档。设为 true 后图鉴直接显示完整说明。
     /// </summary>

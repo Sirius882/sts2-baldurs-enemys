@@ -19,10 +19,10 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 博德安的巨人杀手（A10 血量 200，低进阶 190）。安苏精英战的可拾取物：
-/// 插在龙骸上的巨剑，自己眩晕杵着，可被「拾取」。
+/// 博德安的巨人杀手（A10 血量 200，低进阶 190）。安苏精英战的可交互物：
+/// 插在龙骸上的巨剑，自己眩晕杵着，可被「交互」。
 ///
-/// 被拾取后变成遗物「博德安的巨人杀手」（见 Relics/BalduransGiantslayer）；
+/// 被交互后变成遗物「博德安的巨人杀手」（见 Relics/BalduransGiantslayer）；
 /// 它死亡（无论死因）时，安苏的「被背叛」立即触发（+5 力量 + 自伤半血）——
 /// 拿剑有真实代价。
 /// </summary>
@@ -34,7 +34,7 @@ public sealed class BalduransGiantslayer : BaldurMonsterModel
 
     public override DamageSfxType TakeDamageSfxType => DamageSfxType.Armor;
 
-    /// <summary>留尸：死亡后本体不淡出（照抄油桶/GasBomb 的可拾取物口径）。</summary>
+    /// <summary>留尸：死亡后本体不淡出（照抄油桶/GasBomb 的可交互物口径）。</summary>
     public override bool ShouldFadeAfterDeath => false;
 
     /// <summary>
@@ -47,7 +47,7 @@ public sealed class BalduransGiantslayer : BaldurMonsterModel
     public override async Task AfterAddedToRoom()
     {
         await base.AfterAddedToRoom();
-        await PowerCmd.Apply<PickpocketablePower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+        await PowerCmd.Apply<InteractablePower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
     }
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()

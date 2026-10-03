@@ -9,8 +9,8 @@ namespace baldurs_enemys.src.Encounters;
 
 /// <summary>
 /// 「巴尔死亡使者」奥林 Boss 战（第三层 Boss 池）：[奥林, 人质]。
-/// catch=true：本场发「拾取」卡，可拾取目标是人质（→ 原版遗物「布质果实」+「李家华夫饼」），
-/// 但人质死亡/被拾取会触发奥林 +5 力量并进入杀戮者形态。
+/// catch=true：本场发「交互」卡，可交互目标是人质（→ 原版遗物「布质果实」+「李家华夫饼」），
+/// 但人质死亡/被交互会触发奥林 +5 力量并进入杀戮者形态。
 /// 地图图标暂用原版占位 the_kin_boss_icon。
 /// </summary>
 public sealed class OrinBoss : CustomEncounterModel, ICatchEncounter

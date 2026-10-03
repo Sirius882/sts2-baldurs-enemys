@@ -9,7 +9,7 @@ namespace baldurs_enemys.src.Encounters;
 
 /// <summary>
 /// 「莎尔的女院长」维康妮亚精英战（第三层精英池）：[油桶, 维康妮亚, 油桶]。
-/// catch=false：本场不发「拾取」卡。油桶是解题钥匙（引爆绕过暗影帷幕）。
+/// catch=false：本场不发「交互」卡。油桶是解题钥匙（引爆绕过暗影帷幕）。
 /// </summary>
 public sealed class ViconiaElite : CustomEncounterModel
 {

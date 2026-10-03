@@ -8,16 +8,13 @@
   "BALDURS_ENEMYS-GOBLIN_MELEE.moves.RALLY2.title": "Rally",
   "BALDURS_ENEMYS-GOBLIN_MELEE.moves.HACK_LOOP.title": "Hack",
   "BALDURS_ENEMYS-GOBLIN_MELEE.moves.JAB_LOOP.title": "Jab",
-
   "BALDURS_ENEMYS-GOBLIN_RANGED.name": "Goblin Archer",
   "BALDURS_ENEMYS-GOBLIN_RANGED.moves.SHOOT.title": "Shoot",
   "BALDURS_ENEMYS-GOBLIN_RANGED.moves.SHOOT2.title": "Shoot",
   "BALDURS_ENEMYS-GOBLIN_RANGED.moves.RELOAD.title": "Reload",
   "BALDURS_ENEMYS-GOBLIN_RANGED.moves.RALLY.title": "Rally",
-
   "BALDURS_ENEMYS-OIL_BARREL.name": "Oil Barrel",
   "BALDURS_ENEMYS-OIL_BARREL.moves.IDLE.title": "……",
-
   "BALDURS_ENEMYS-MINTHARA.name": "Minthara, Nightwarden",
   "BALDURS_ENEMYS-MINTHARA.moves.AURA_GUARD.title": "Guard Aura",
   "BALDURS_ENEMYS-MINTHARA.moves.AURA_VALOR.title": "Valor Aura",
@@ -30,25 +27,24 @@
   "BALDURS_ENEMYS-MINTHARA.moves.SLAM_BIG.title": "Nightwarden Slash",
   "BALDURS_ENEMYS-MINTHARA.moves.SLAM_LOOP.title": "Nightwarden Slash",
   "BALDURS_ENEMYS-MINTHARA.moves.RALLY_LOOP.title": "Judgement",
-
   "BALDURS_ENEMYS-YURG.name": "Yurg",
   "BALDURS_ENEMYS-YURG.moves.LACERATE.title": "Lacerate",
   "BALDURS_ENEMYS-YURG.moves.BIG_POUNCE.title": "Big Pounce",
   "BALDURS_ENEMYS-YURG.moves.BURNING_GROWL.title": "Burning Growl",
-
   "BALDURS_ENEMYS-SKELETON.name": "Skeleton",
-  "BALDURS_ENEMYS-SKELETON.moves.HEADBUTT.title": "Headbutt",
-  "BALDURS_ENEMYS-SKELETON.moves.DIZZY.title": "Dazed",
-
+  "BALDURS_ENEMYS-SKELETON.moves.HACK.title": "Hack",
+  "BALDURS_ENEMYS-SKELETON.moves.JAB.title": "Jab",
+  "BALDURS_ENEMYS-SKELETON.moves.RALLY.title": "Rally",
+  "BALDURS_ENEMYS-SKELETON.moves.HACK2.title": "Hack",
+  "BALDURS_ENEMYS-SKELETON.moves.JAB2.title": "Jab",
+  "BALDURS_ENEMYS-SKELETON.moves.RALLY2.title": "Rally",
+  "BALDURS_ENEMYS-SKELETON.moves.HACK_LOOP.title": "Hack",
+  "BALDURS_ENEMYS-SKELETON.moves.JAB_LOOP.title": "Jab",
   "BALDURS_ENEMYS-BALTHAZAR.name": "Balthazar",
-  "BALDURS_ENEMYS-BALTHAZAR.moves.MEND.title": "Mend",
-  "BALDURS_ENEMYS-BALTHAZAR.moves.DEATH_CLOUD.title": "Death Cloud",
   "BALDURS_ENEMYS-BALTHAZAR.moves.DRAIN.title": "Siphon Life",
   "BALDURS_ENEMYS-BALTHAZAR.moves.SHADOW_BURST.title": "Shadow Burst",
-
   "BALDURS_ENEMYS-NIGHTSONG.name": "Nightsong",
   "BALDURS_ENEMYS-NIGHTSONG.moves.IDLE.title": "……",
-
   "BALDURS_ENEMYS-ISOBEL.name": "Isobel",
   "BALDURS_ENEMYS-ISOBEL.moves.SMITE.title": "Radiant Smite",
   "BALDURS_ENEMYS-ISOBEL.moves.BLESS.title": "Moonlit Blessing",
@@ -61,15 +57,13 @@
   "BALDURS_ENEMYS-ISOBEL.moves.SMITE5.title": "Radiant Smite",
   "BALDURS_ENEMYS-ISOBEL.moves.BLESS5.title": "Moonlit Blessing",
   "BALDURS_ENEMYS-ISOBEL.moves.SMITE_LOOP.title": "Radiant Smite",
-
   "BALDURS_ENEMYS-KETHERIC_THORM.name": "Ketheric Thorm",
   "BALDURS_ENEMYS-KETHERIC_THORM.moves.SMASH.title": "Heavy Slam",
   "BALDURS_ENEMYS-KETHERIC_THORM.moves.BARRAGE.title": "Flail Sweep",
   "BALDURS_ENEMYS-KETHERIC_THORM.moves.EMPOWER.title": "Necrotic Infusion",
   "BALDURS_ENEMYS-KETHERIC_THORM.moves.REAP.title": "Undying Reap",
   "BALDURS_ENEMYS-KETHERIC_THORM.moves.REAP2.title": "Undying Reap",
-  "BALDURS_ENEMYS-KETHERIC_THORM.moves.RECOVER.title": "Gather the Undying",
-
+  "BALDURS_ENEMYS-KETHERIC_THORM.moves.EMPOWER1.title": "Gather the Undying",
   "BALDURS_ENEMYS-MYRKUL_APOSTLE.name": "Apostle of Myrkul, Face of the Death God",
   "BALDURS_ENEMYS-MYRKUL_APOSTLE.moves.SLASH_A1.title": "Reaper's Scythe",
   "BALDURS_ENEMYS-MYRKUL_APOSTLE.moves.JAB_A1.title": "Withered Touch",
@@ -81,13 +75,11 @@
   "BALDURS_ENEMYS-MYRKUL_APOSTLE.moves.JAB_A3.title": "Withered Touch",
   "BALDURS_ENEMYS-MYRKUL_APOSTLE.moves.HEAL_A3.title": "Soul Siphon",
   "BALDURS_ENEMYS-MYRKUL_APOSTLE.moves.EMPOWER.title": "Death Ascendant",
-
   "BALDURS_ENEMYS-VICONIA.name": "Viconia, Mother Superior of Shar",
   "BALDURS_ENEMYS-VICONIA.moves.STRIKE.title": "Sacrificial Blades",
   "BALDURS_ENEMYS-VICONIA.moves.VEIL.title": "Shroud of Shadows",
   "BALDURS_ENEMYS-VICONIA.moves.STRIKE_SINGLE.title": "Shadow Pierce",
   "BALDURS_ENEMYS-VICONIA.moves.EMPOWER.title": "Shar's Favor",
-
   "BALDURS_ENEMYS-CAZADOR.name": "Cazador Szarr, Vampire Lord",
   "BALDURS_ENEMYS-CAZADOR.moves.FEAST.title": "Blood Feast",
   "BALDURS_ENEMYS-CAZADOR.moves.BITE1.title": "Bite",
@@ -98,24 +90,19 @@
   "BALDURS_ENEMYS-CAZADOR.moves.BITE_LOOP.title": "Bite",
   "BALDURS_ENEMYS-CAZADOR.moves.SWARM_LOOP.title": "Bat Swarm",
   "BALDURS_ENEMYS-CAZADOR.moves.EMPOWER1.title": "Feastful Whisper",
-
   "BALDURS_ENEMYS-BAT.name": "Bat",
   "BALDURS_ENEMYS-BAT.moves.DOUBLE_BITE.title": "Double Bite",
   "BALDURS_ENEMYS-BAT.moves.BITE.title": "Gnaw",
   "BALDURS_ENEMYS-BAT.moves.SCREECH.title": "Shrilling Screech",
-
   "BALDURS_ENEMYS-ANSUR.name": "Ansur, the Heart of Baldur's Gate",
   "BALDURS_ENEMYS-ANSUR.moves.EMPOWER.title": "Draconic Might",
   "BALDURS_ENEMYS-ANSUR.moves.TAIL.title": "Tail Sweep",
   "BALDURS_ENEMYS-ANSUR.moves.CLAWS.title": "Twin Claws",
   "BALDURS_ENEMYS-ANSUR.moves.ENRAGED_CLAWS.title": "Fury of Betrayal",
-
   "BALDURS_ENEMYS-BALDURANS_GIANTSLAYER.name": "Balduran's Giantslayer",
   "BALDURS_ENEMYS-BALDURANS_GIANTSLAYER.moves.IDLE.title": "...",
-
   "BALDURS_ENEMYS-HOSTAGE.name": "Hostage",
   "BALDURS_ENEMYS-HOSTAGE.moves.IDLE.title": "...",
-
   "BALDURS_ENEMYS-ORIN.name": "Orin the Red, Bhaal's Deathbringer",
   "BALDURS_ENEMYS-ORIN.moves.STAB.title": "Shadow Stab",
   "BALDURS_ENEMYS-ORIN.moves.DEX_DOWN.title": "Hamstring",
@@ -123,12 +110,10 @@
   "BALDURS_ENEMYS-ORIN.moves.SLASH.title": "Slaughter Combo",
   "BALDURS_ENEMYS-ORIN.moves.FLURRY.title": "Bhaalic Frenzy",
   "BALDURS_ENEMYS-ORIN.moves.DEX_TEMP.title": "Terrifying Roar",
-
   "BALDURS_ENEMYS-STEEL_WATCHER.name": "Steel Watcher",
   "BALDURS_ENEMYS-STEEL_WATCHER.moves.PUNCH.title": "Steel Fist",
   "BALDURS_ENEMYS-STEEL_WATCHER.moves.DOUBLE_SWING.title": "Twin Swing",
   "BALDURS_ENEMYS-STEEL_WATCHER.moves.BARRAGE.title": "Volley Fire",
-
   "BALDURS_ENEMYS-GORTASH.name": "Lord Enver Gortash, Pariah of Baldur's Gate",
   "BALDURS_ENEMYS-GORTASH.moves.COMMAND.title": "Steel Command",
   "BALDURS_ENEMYS-GORTASH.moves.STRIKE.title": "Thundering Strike",
@@ -136,20 +121,16 @@
   "BALDURS_ENEMYS-GORTASH.moves.EMPOWER.title": "Bane's Blessing",
   "BALDURS_ENEMYS-GORTASH.moves.SLAM.title": "Bursting Hammer",
   "BALDURS_ENEMYS-GORTASH.moves.CRUSH.title": "Merciless Crush",
-
   "BALDURS_ENEMYS-SOUL_PILLAR.name": "Soul Pillar",
   "BALDURS_ENEMYS-SOUL_PILLAR.moves.IDLE.title": "...",
-
   "BALDURS_ENEMYS-RAPHAEL.name": "Raphael",
   "BALDURS_ENEMYS-RAPHAEL.moves.IDLE.title": "Enjoying the Show",
   "BALDURS_ENEMYS-RAPHAEL.moves.HELLFIRE.title": "Hellfire",
   "BALDURS_ENEMYS-RAPHAEL.moves.EMPOWER.title": "Demonic Contract",
   "BALDURS_ENEMYS-RAPHAEL.moves.GASH.title": "Infernal Rend",
   "BALDURS_ENEMYS-RAPHAEL.moves.BRAND.title": "Hellfire Brand",
-
   "BALDURS_ENEMYS-DREAM_GUARDIAN.name": "Dream Guardian",
   "BALDURS_ENEMYS-DREAM_GUARDIAN.moves.NIGHTMARE.title": "Dream Devourer",
-
   "BALDURS_ENEMYS-EMPEROR.name": "The Emperor",
   "BALDURS_ENEMYS-EMPEROR.moves.PSIONIC_EMPOWER.title": "Psionic Awakening",
   "BALDURS_ENEMYS-EMPEROR.moves.TENTACLE.title": "Tentacle Slam",

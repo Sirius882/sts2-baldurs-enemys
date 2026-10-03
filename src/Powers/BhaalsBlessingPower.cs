@@ -19,7 +19,7 @@ namespace baldurs_enemys.src.Powers;
 /// 每回合分别掷骰（种子 RNG，多人/SL 一致）。
 ///
 /// 形态切换由两处驱动：奥林的转阶段招式（+3 力量并切形态）与
-/// 人质死亡/被拾取（+5 力量并切形态）——分别调用 <see cref="EnterSlayerForm"/>。
+/// 人质死亡/被交互（+5 力量并切形态）——分别调用 <see cref="EnterSlayerForm"/>。
 /// </summary>
 public sealed class BhaalsBlessingPower : CustomPowerModel
 {
@@ -64,7 +64,7 @@ public sealed class BhaalsBlessingPower : CustomPowerModel
         }
     }
 
-    /// <summary>人质死亡或被拾取时：奥林获得 5 力量并进入狂怒（杀戮者形态）。</summary>
+    /// <summary>人质死亡或被交互时：奥林获得 5 力量并进入狂怒（杀戮者形态）。</summary>
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
         if (wasRemovalPrevented || creature == Owner || SlayerForm)

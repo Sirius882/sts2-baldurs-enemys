@@ -21,7 +21,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 拉斐尔（A10 血量 340，低进阶 323）。第三层 Boss，两侧各两根灵魂柱。
+/// 拉斐尔（A10 血量 420，低进阶 400）。第三层 Boss，两侧各两根灵魂柱。
 ///
 /// 原稿状态机（#define t = 本场战斗经过的回合数）：
 ///   while(灵魂柱数量 >= 2)
@@ -45,7 +45,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class Raphael : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 340, 323);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 420, 400);
 
     public override int MaxInitialHp => MinInitialHp;
 

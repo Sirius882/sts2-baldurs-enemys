@@ -10,7 +10,7 @@ namespace baldurs_enemys.src.Encounters;
 /// <summary>
 /// 「凯瑟里克·索姆」Boss 战（第二层 Boss 池）：[伊索贝尔, 凯瑟里克·索姆]。
 ///
-/// - catch=false：本场不发「拾取」卡。
+/// - catch=false：本场不发「交互」卡。
 /// - 2 怪无自定义场景 → 走引擎默认排位。
 /// - Boss 地图图标：暂复用原版占位图标 knowledge_demon_boss_icon（本 mod 暂无自绘图标）。
 ///   BossNodePath 指向真实存在的图标基名（引擎 MapNodeAssetPaths 拼 ".png"/"_outline.png" 预加载）。

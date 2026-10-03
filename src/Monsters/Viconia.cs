@@ -20,7 +20,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 「莎尔的女院长」维康妮亚（A10 血量 180，低进阶 171）。第三层精英，两侧各一油桶。
+/// 「莎尔的女院长」维康妮亚（A10 血量 280，低进阶 266）。第三层精英，两侧各一油桶。
 ///
 /// 原稿状态机：
 ///   while(true) { 攻击5*2; 强化：暗影帷幕(刷新至3层); if(任一侧油桶存活) 攻击7*1; else 强化获得2力量; }
@@ -30,7 +30,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class Viconia : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 180, 171);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 280, 266);
 
     public override int MaxInitialHp => MinInitialHp;
 

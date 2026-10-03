@@ -17,8 +17,8 @@ using baldurs_enemys.src.Patches;
 namespace baldurs_enemys.src.Powers;
 
 /// <summary>
-/// 「死亡引爆」（2026-10-02 骰子版）：被**爪牙效果**和卡牌「拾取」以外的方式击败时，
-/// 对所有玩家各造成 1d4+7 点伤害，对所有敌人各造成其最大生命值 ×1/(1d4+1) 的伤害
+/// 「死亡引爆」（2026-10-03 骰子版，设计稿标注「有改动」）：被**爪牙效果**和卡牌「交互」以外的方式击败时，
+/// 对所有玩家各造成 1d4+7 点伤害，对所有敌人各造成其最大生命值 ×1/(1d8+1) 的伤害
 /// （每个受伤的单位逐个掷骰，各自受到的伤害不一定相同）。
 ///
 /// 实现要点（均按原版实测规则钉死）：
@@ -26,7 +26,7 @@ namespace baldurs_enemys.src.Powers;
 /// 2. 「爪牙效果」击败不触发：主要敌人死亡后引擎在其死亡处理帧内 await Kill(teammates) 连带处决爪牙。
 ///    由 <see cref="PrimaryEnemyDeathTrackerPatch"/> 的深度计数识别 —— 连带处决时深度 &gt; 0。
 /// 3. 油桶连环爆炸**不受**该排除：B 桶死于 A 桶爆炸的伤害结算，不经过主要敌人的死亡处理帧 → 深度 0 → 照常引爆。
-/// 4. 被「拾取」杀死时不触发：拾取卡在 Kill 之前置 SuppressExplosion = true。
+/// 4. 被「交互」杀死时不触发：交互卡在 Kill 之前置 SuppressExplosion = true。
 /// 5. 骰子全部走 <see cref="Dice"/>（run 种子的 Niche 通道）；逐单位按 Players/Enemies 列表顺序掷骰。
 /// 6. 伤害一律以 dealer: null 结算，爆炸来源靠 <see cref="DeathExplosionDamageSource"/> 的标志位识别。
 ///    原因：AfterDeath 时油桶 HP 必已被归零，而 CreatureCmd.Damage 开头有
@@ -43,7 +43,7 @@ public sealed class DeathExplosionPower : CustomPowerModel
     public override PowerStackType StackType => PowerStackType.Single;
 
     /// <summary>
-    /// 由「拾取」卡在击杀前置位：本次死亡是被拾取的，不应引爆。
+    /// 由「交互」卡在击杀前置位：本次死亡是被交互的，不应引爆。
     /// </summary>
     public bool SuppressExplosion { get; set; }
 
@@ -55,7 +55,7 @@ public sealed class DeathExplosionPower : CustomPowerModel
         // 只在拥有者本人死亡时触发（AfterDeath 会对每个监听者触发，需过滤）
         if (target != Owner) return;
 
-        // 被「拾取」杀死 → 不炸
+        // 被「交互」杀死 → 不炸
         if (SuppressExplosion) return;
 
         // 双保险：每个油桶整场只爆一次
@@ -98,13 +98,13 @@ public sealed class DeathExplosionPower : CustomPowerModel
                 await CreatureCmd.Damage(choiceContext, player, damage, ValueProp.Unpowered, null, null, null);
             }
 
-            // 第二段：对所有存活的其他敌人**逐个**掷 1d4+1 得到 d，造成最大生命值/d（向下取整）
+            // 第二段：对所有存活的其他敌人**逐个**掷 1d8+1 得到 d，造成最大生命值/d（向下取整）
             // 逐个结算；若因此击杀另一个油桶，其 AfterDeath 会在这里嵌套触发 → 形成用户定义的链式引爆
             List<Creature> others = combatState.HittableEnemies.Where(c => c != self).ToList();
             foreach (Creature other in others)
             {
                 if (!other.IsAlive) continue;
-                int denominator = Dice.Roll(combatState, 1, 4, 1);
+                int denominator = Dice.Roll(combatState, 1, 8, 1);
                 int damage = other.MaxHp / denominator;
                 if (damage <= 0) continue;
                 await CreatureCmd.Damage(choiceContext, other, damage, ValueProp.Unpowered, null, null, null);

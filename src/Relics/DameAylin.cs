@@ -18,7 +18,7 @@ using baldurs_enemys.src.Monsters;
 namespace baldurs_enemys.src.Relics;
 
 /// <summary>
-/// 「艾琳女士」（Dame Aylin）：拾取暗夜之歌的唯一产物。
+/// 「艾琳女士」（Dame Aylin）：交互暗夜之歌的唯一产物。
 ///
 /// 效果（设计稿）：
 /// - 每场战斗开始时，获得 3 层人工制品（ArtifactPower）；
@@ -27,7 +27,7 @@ namespace baldurs_enemys.src.Relics;
 ///   原因见该方法注释——绝不能放 Isobel.AfterAddedToRoom）；
 ///   洛若坎精英战的特殊效果待该战斗设计落地后补充。
 ///
-/// 唯一来源是拾取暗夜之歌：标注 [Pool(typeof(BaldursRelicPool))]，该池是 mod 专属池
+/// 唯一来源是交互暗夜之歌：标注 [Pool(typeof(BaldursRelicPool))]，该池是 mod 专属池
 /// （不参与任何随机掉落，理由见 BaldursRelicPool 类注释），再加 IsAllowedInShops=>false 双保险。
 /// 注意：BaldursRelicPool 必须是 IsShared=>true，否则图鉴里本遗物会永久显示为「已锁定」，
 /// 悬停只会弹出通用「已锁定」提示而非本遗物的说明。

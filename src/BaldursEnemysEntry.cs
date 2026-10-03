@@ -16,7 +16,7 @@ namespace baldurs_enemys;
 /// BaseLib 不会自动实例化任何模型 —— 它只在 <see cref="CustomEncounterModel"/> 的构造函数里把自己
 /// 塞进 CustomContentDictionary，所以遭遇与单例必须在 Init 里显式 new 出来，否则：
 /// - 遭遇：CustomEncounters 列表为空 → AddActContent postfix 拿不到任何东西 → 永远不入池；
-/// - 单例：SubscribeForCombatStateHooks 没被调用 → 收不到战斗钩子 → 「拾取」卡永远不会被塞进手牌。
+/// - 单例：SubscribeForCombatStateHooks 没被调用 → 收不到战斗钩子 → 「交互」卡永远不会被塞进手牌。
 ///
 /// 怪物 / power / 卡牌由 ModelDb 通过反射发现（AllAbstractModelSubtypes 会扫 mod 程序集），
 /// 显式 new 一遍是为了让 BaseLib 的登记（RegisterType / AddModel）在任何 ModelDb 查询之前完成，无害且稳妥。
@@ -87,12 +87,12 @@ public static class BaldursEnemysEntry
         _ = new Emperor();
 
         // ---- power ----
-        _ = new PickpocketablePower();
+        _ = new InteractablePower();
         _ = new DeathExplosionPower();
         _ = new GuardAuraPower();
         _ = new ValorAuraPower();
         _ = new DeathCloudPower();
-        _ = new PickpocketableBigPower();
+        _ = new InteractableBigPower();
         _ = new SelunesBlessingPower();
         _ = new ShroudVeilPower();
         _ = new BloodFeastPower();
@@ -105,10 +105,9 @@ public static class BaldursEnemysEntry
         _ = new KarsusCompulsionPower();
         _ = new BhaalsBlessingPower();
         _ = new TimedDebuffExpiryPower();
-        _ = new SkeletonImbalancedPower();
 
         // ---- 遗物（CustomRelicModel 构造时经 AddModel 登记；挂在 mod 专属池 BaldursRelicPool 上，
-        //      该池不参与任何随机掉落，唯一来源只能是拾取暗夜之歌 / 拾取巨人杀手）----
+        //      该池不参与任何随机掉落，唯一来源只能是交互暗夜之歌 / 交互巨人杀手）----
         // 注意：BaldursRelicPool 内部 IsShared=>true 是【必须】的，否则图鉴会判定为「已锁定」。
         //      详见该池类注释里的完整证据链。
         _ = new BaldursRelicPool();
@@ -128,7 +127,7 @@ public static class BaldursEnemysEntry
         RelicImageOverridePatch.AddOverride<DameAylin>(dameAylinIcon);
 
         // ---- 卡牌 ----
-        _ = new Pickup();
+        _ = new Interact();
 
         // ---- 背景音乐控制器（订阅主线程帧回调，见 BaldurMusicController 类注释的架构约定）----
         baldurs_enemys.src.Music.BaldurMusicController.Initialize();

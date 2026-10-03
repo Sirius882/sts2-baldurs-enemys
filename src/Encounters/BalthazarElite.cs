@@ -10,7 +10,7 @@ namespace baldurs_enemys.src.Encounters;
 /// <summary>
 /// 「巴萨扎尔」精英战（第二层精英池）：[骷髅, 巴萨扎尔, 暗夜之歌]。
 ///
-/// - catch=true：本场战斗会发「拾取」卡（拾取暗夜之歌是遗物「艾琳女士」的唯一来源）。
+/// - catch=true：本场战斗会发「交互」卡（交互暗夜之歌是遗物「艾琳女士」的唯一来源）。
 /// - 3 怪无自定义场景 → 走引擎默认排位（原版多数遭遇同样无场景，3 怪默认位存在）。
 /// - 无自定义背景 → 用第二层默认背景。
 /// </summary>
@@ -25,7 +25,7 @@ public sealed class BalthazarElite : CustomEncounterModel, ICatchEncounter
     {
     }
 
-    /// <summary>本场战斗会发「拾取」卡。</summary>
+    /// <summary>本场战斗会发「交互」卡。</summary>
     public bool CatchEnabled => true;
 
     public override IEnumerable<MonsterModel> AllPossibleMonsters =>

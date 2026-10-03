@@ -21,7 +21,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace baldurs_enemys.src.Monsters;
 
 /// <summary>
-/// 蝙蝠（A10 血量 30，低进阶 28）。卡扎多尔精英战的杂兵。
+/// 蝙蝠（A10 血量 60，低进阶 57）。卡扎多尔精英战的杂兵。
 ///
 /// 原稿状态机：
 ///   while(true)
@@ -39,7 +39,7 @@ namespace baldurs_enemys.src.Monsters;
 /// </summary>
 public sealed class Bat : BaldurMonsterModel
 {
-    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 30, 28);
+    public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 60, 57);
 
     public override int MaxInitialHp => MinInitialHp;
 
@@ -94,14 +94,18 @@ public sealed class Bat : BaldurMonsterModel
     protected override bool ShouldShowMoveInBestiary(string moveStateId) =>
         moveStateId is "DOUBLE_BITE" or "BITE" or "SCREECH";
 
-    /// <summary>每招执行体末尾为下一回合预掷（种子 RNG）。</summary>
-    private async Task RerollForNextTurn()
+    /// <summary>
+    /// 每招执行体末尾为下一回合预掷（种子 RNG）。
+    /// 纯赋值、无 await —— 故返回 Task.CompletedTask 而非 async（消除 CS1998）。
+    /// </summary>
+    private Task RerollForNextTurn()
     {
         ICombatState? combatState = base.Creature.CombatState;
         if (combatState != null)
         {
             Choice = Dice.Roll(combatState, 1, 3, 0);
         }
+        return Task.CompletedTask;
     }
 
     private async Task DoubleBiteMove(IReadOnlyList<Creature> targets)

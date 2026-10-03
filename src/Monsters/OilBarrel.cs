@@ -22,7 +22,7 @@ namespace baldurs_enemys.src.Monsters;
 ///
 /// 附带三个 power：
 /// - 爪牙：直接用原版 <see cref="MinionPower"/>，挂法照抄原版 GasBomb（在 AfterAddedToRoom 里 Apply）；
-/// - 可被拾取：<see cref="PickpocketablePower"/>；
+/// - 可被交互：<see cref="InteractablePower"/>；
 /// - 死亡引爆：<see cref="DeathExplosionPower"/>。
 ///
 /// 结构上直接以原版 GasBomb 为模板：同为"不会动的爆炸物"，ShouldFadeAfterDeath=false 留尸。
@@ -58,7 +58,7 @@ public sealed class OilBarrel : BaldurMonsterModel
     {
         await base.AfterAddedToRoom();
         await PowerCmd.Apply<MinionPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
-        await PowerCmd.Apply<PickpocketablePower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
+        await PowerCmd.Apply<InteractablePower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
         await PowerCmd.Apply<DeathExplosionPower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
     }
 

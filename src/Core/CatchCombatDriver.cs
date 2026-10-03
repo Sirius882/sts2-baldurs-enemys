@@ -21,7 +21,7 @@ namespace baldurs_enemys.src.Core;
 ///
 /// 解法：CustomSingletonModel(HookType.Combat) 会让 BaseLib 替我们调用
 /// ModHelper.SubscribeForCombatStateHooks，从而在每场战斗里收到全部战斗钩子。
-/// 这里在 AfterPlayerTurnStart（= 抽牌完成之后的确切位置）判断当前战斗是否为 catch 战斗，是则塞一张「拾取」。
+/// 这里在 AfterPlayerTurnStart（= 抽牌完成之后的确切位置）判断当前战斗是否为 catch 战斗，是则塞一张「交互」。
 /// </summary>
 public sealed class CatchCombatDriver : CustomSingletonModel
 {
@@ -38,7 +38,7 @@ public sealed class CatchCombatDriver : CustomSingletonModel
         if (player.PlayerCombatState.Hand.Cards.Count >= CardPile.MaxCardsInHand) return;
 
         // 目标传玩家的 Creature；pileType=Hand 时引擎只做 0.1s 等待，不走卡牌预览
-        await CardPileCmd.AddToCombatAndPreview<Pickup>(player.Creature, PileType.Hand, 1, null);
+        await CardPileCmd.AddToCombatAndPreview<Interact>(player.Creature, PileType.Hand, 1, null);
     }
 
     private static bool IsCatchCombat(Player player)

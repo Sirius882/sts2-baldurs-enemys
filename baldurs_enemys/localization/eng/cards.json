@@ -1,4 +1,4 @@
 {
-  "BALDURS_ENEMYS-PICKUP.title": "Pick Up",
-  "BALDURS_ENEMYS-PICKUP.description": "Kill an enemy with Pickpocketable and take it into your pack.\nEnd your turn."
+  "BALDURS_ENEMYS-INTERACT.title": "Interact",
+  "BALDURS_ENEMYS-INTERACT.description": "Kill an enemy marked Interactable and claim it.\nEnd your turn."
 }
