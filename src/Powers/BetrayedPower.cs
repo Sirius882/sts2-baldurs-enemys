@@ -22,6 +22,14 @@ public sealed class BetrayedPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
 
+    /// <summary>图标：mod 自制（images/powers/betrayed.png 64x64 / big/betrayed_big.png 256x256）。
+    /// 程序化生成的原创符号化图标 ——「被背叛」：2d4 格挡；巨人杀手死亡时反噬。
+    /// 注意 power 图标**不做染色**（ICustomPower 只覆写路径），与 boss 地图图标的纯白要求不同。</summary>
+    public override string? CustomPackedIconPath => "res://baldurs_enemys/images/powers/betrayed.png";
+
+    /// <summary>大图标（256x256，power 详情/图鉴用）。</summary>
+    public override string? CustomBigIconPath => "res://baldurs_enemys/images/powers/big/betrayed_big.png";
+
     public override PowerStackType StackType => PowerStackType.Single;
 
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)

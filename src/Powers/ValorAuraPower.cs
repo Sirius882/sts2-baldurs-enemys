@@ -35,6 +35,14 @@ public sealed class ValorAuraPower : CustomPowerModel
 
     public override PowerType Type => PowerType.Buff;
 
+    /// <summary>图标：mod 自制（images/powers/valor_aura.png 64x64 / big/valor_aura_big.png 256x256）。
+    /// 程序化生成的原创符号化图标 ——「勇气灵光」：掷骰获得活力。
+    /// 注意 power 图标**不做染色**（ICustomPower 只覆写路径），与 boss 地图图标的纯白要求不同。</summary>
+    public override string? CustomPackedIconPath => "res://baldurs_enemys/images/powers/valor_aura.png";
+
+    /// <summary>大图标（256x256，power 详情/图鉴用）。</summary>
+    public override string? CustomBigIconPath => "res://baldurs_enemys/images/powers/big/valor_aura_big.png";
+
     public override PowerStackType StackType => PowerStackType.Counter;
 
     // 活力层数由每回合掷骰（1d4-1）决定，Amount 缩放不再适用

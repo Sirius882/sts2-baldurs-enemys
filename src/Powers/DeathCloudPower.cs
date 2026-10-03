@@ -33,6 +33,14 @@ public sealed class DeathCloudPower : CustomPowerModel
 
     public override PowerType Type => PowerType.Debuff;
 
+    /// <summary>图标：mod 自制（images/powers/death_cloud.png 64x64 / big/death_cloud_big.png 256x256）。
+    /// 程序化生成的原创符号化图标 ——「死云术」：回合结束 1d8+1 伤害，永久。
+    /// 注意 power 图标**不做染色**（ICustomPower 只覆写路径），与 boss 地图图标的纯白要求不同。</summary>
+    public override string? CustomPackedIconPath => "res://baldurs_enemys/images/powers/death_cloud.png";
+
+    /// <summary>大图标（256x256，power 详情/图鉴用）。</summary>
+    public override string? CustomBigIconPath => "res://baldurs_enemys/images/powers/big/death_cloud_big.png";
+
     public override PowerStackType StackType => PowerStackType.Counter;
 
     // 每次结算伤害由掷骰（1d8+1）决定，Amount 缩放不再适用

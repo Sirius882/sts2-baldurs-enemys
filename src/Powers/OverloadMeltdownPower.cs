@@ -35,6 +35,14 @@ public sealed class OverloadMeltdownPower : CustomPowerModel
 
     public override PowerType Type => PowerType.Buff;
 
+    /// <summary>图标：mod 自制（images/powers/overload_meltdown.png 64x64 / big/overload_meltdown_big.png 256x256）。
+    /// 程序化生成的原创符号化图标 ——「过载熔毁」：死亡自爆，残血提前自爆。
+    /// 注意 power 图标**不做染色**（ICustomPower 只覆写路径），与 boss 地图图标的纯白要求不同。</summary>
+    public override string? CustomPackedIconPath => "res://baldurs_enemys/images/powers/overload_meltdown.png";
+
+    /// <summary>大图标（256x256，power 详情/图鉴用）。</summary>
+    public override string? CustomBigIconPath => "res://baldurs_enemys/images/powers/big/overload_meltdown_big.png";
+
     public override PowerStackType StackType => PowerStackType.Single;
 
     /// <summary>

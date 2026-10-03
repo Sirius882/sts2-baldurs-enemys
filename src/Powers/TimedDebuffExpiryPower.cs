@@ -26,6 +26,14 @@ public sealed class TimedDebuffExpiryPower : CustomPowerModel
 
     public override PowerType Type => PowerType.Debuff;
 
+    /// <summary>图标：mod 自制（images/powers/timed_debuff_expiry.png 64x64 / big/timed_debuff_expiry_big.png 256x256）。
+    /// 程序化生成的原创符号化图标 ——「定时消散」：内部辅助：减益倒计时。
+    /// 注意 power 图标**不做染色**（ICustomPower 只覆写路径），与 boss 地图图标的纯白要求不同。</summary>
+    public override string? CustomPackedIconPath => "res://baldurs_enemys/images/powers/timed_debuff_expiry.png";
+
+    /// <summary>大图标（256x256，power 详情/图鉴用）。</summary>
+    public override string? CustomBigIconPath => "res://baldurs_enemys/images/powers/big/timed_debuff_expiry_big.png";
+
     public override PowerStackType StackType => PowerStackType.Counter;
 
     /// <summary>登记到期的目标 power（施加后立即调用；同一实例只登记一次）。</summary>

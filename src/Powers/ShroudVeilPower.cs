@@ -35,6 +35,14 @@ public sealed class ShroudVeilPower : CustomPowerModel
 
     public override PowerType Type => PowerType.Buff;
 
+    /// <summary>图标：mod 自制（images/powers/shroud_veil.png 64x64 / big/shroud_veil_big.png 256x256）。
+    /// 程序化生成的原创符号化图标 ——「暗影帷幕」：1d4 闪避，层数耗尽消失。
+    /// 注意 power 图标**不做染色**（ICustomPower 只覆写路径），与 boss 地图图标的纯白要求不同。</summary>
+    public override string? CustomPackedIconPath => "res://baldurs_enemys/images/powers/shroud_veil.png";
+
+    /// <summary>大图标（256x256，power 详情/图鉴用）。</summary>
+    public override string? CustomBigIconPath => "res://baldurs_enemys/images/powers/big/shroud_veil_big.png";
+
     public override PowerStackType StackType => PowerStackType.Counter;
 
     public override decimal ModifyHpLostAfterOsty(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)

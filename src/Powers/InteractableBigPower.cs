@@ -15,5 +15,13 @@ public sealed class InteractableBigPower : CustomPowerModel
 
     public override PowerType Type => PowerType.Buff;
 
+    /// <summary>图标：mod 自制（images/powers/interactable_big.png 64x64 / big/interactable_big_big.png 256x256）。
+    /// 程序化生成的原创符号化图标 ——「可被交互·大」：需两次交互才触发。
+    /// 注意 power 图标**不做染色**（ICustomPower 只覆写路径），与 boss 地图图标的纯白要求不同。</summary>
+    public override string? CustomPackedIconPath => "res://baldurs_enemys/images/powers/interactable_big.png";
+
+    /// <summary>大图标（256x256，power 详情/图鉴用）。</summary>
+    public override string? CustomBigIconPath => "res://baldurs_enemys/images/powers/big/interactable_big_big.png";
+
     public override PowerStackType StackType => PowerStackType.Counter;
 }

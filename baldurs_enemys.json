@@ -3,7 +3,7 @@
   "name": "Baldur's Gate 3 Enemies",
   "author": "Claude Play",
   "description": "Adds Baldur's Gate 3 themed enemies: Viconia and Cazador elites, Ansur, the Orin / Gortash / Raphael / Emperor act-3 bosses, and the Myrkul Apostle act-2 boss.",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "min_game_version": "0.111.0",
   "has_pck": true,
   "has_dll": true,
