@@ -37,7 +37,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 意图展示与实际执行读到的是同一个已掷出的值。
 /// 首招的 _choice 在进房时预掷（AfterAddedToRoom，战斗建立的确定性路径）。
 /// </summary>
-public sealed class Bat : CustomMonsterModel
+public sealed class Bat : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 30, 28);
 

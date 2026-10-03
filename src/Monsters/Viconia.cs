@@ -28,7 +28,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 设计说明：暗影帷幕 = BG3 悲伤之屋的黑暗遮蔽（掷 1d4 闪避，见 ShroudVeilPower）；
 /// 两侧油桶是明牌解法——油桶爆炸是未被格挡的无来源伤害，绕过帷幕直接炸掉大量血量。
 /// </summary>
-public sealed class Viconia : CustomMonsterModel
+public sealed class Viconia : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 180, 171);
 

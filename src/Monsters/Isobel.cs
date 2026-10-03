@@ -32,7 +32,7 @@ namespace baldurs_enemys.src.Monsters;
 ///
 /// 攻击 6 低进阶 = round(6/1.15) = 5；治疗/强化量不吃进阶缩放（原版口径）。
 /// </summary>
-public sealed class Isobel : CustomMonsterModel
+public sealed class Isobel : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 80, 76);
 

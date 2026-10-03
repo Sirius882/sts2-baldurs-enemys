@@ -30,7 +30,7 @@ namespace baldurs_enemys.src.Monsters;
 ///   自爆意图被打断（被动眩晕）则顺延一回合；
 /// - 死亡时对玩家方 2d8 / 对怪物方 2d20（死于自爆不触发）。
 /// </summary>
-public sealed class SteelWatcher : CustomMonsterModel
+public sealed class SteelWatcher : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 70, 66);
 

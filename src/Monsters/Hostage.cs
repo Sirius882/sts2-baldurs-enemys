@@ -24,7 +24,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 被拾取后变成原版遗物「布质果实」+「李家华夫饼」（在拾取卡里实现）；
 /// 人质死亡或被拾取时，奥林获得 5 力量并进入狂怒（见 BhaalsBlessingPower.AfterDeath）。
 /// </summary>
-public sealed class Hostage : CustomMonsterModel
+public sealed class Hostage : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 12, 11);
 

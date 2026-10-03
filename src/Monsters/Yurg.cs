@@ -35,7 +35,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 美术占位：原版实验体（res://scenes/creature_visuals/test_subject.tscn）——同一形象，
 /// 其 Spine 动画触发器（MultiAttackTrigger / BiteTrigger / BurnTrigger）因此全部可用。
 /// </summary>
-public sealed class Yurg : CustomMonsterModel
+public sealed class Yurg : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 156, 150);
 

@@ -28,7 +28,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 被拾取成功后变成遗物「艾琳女士」（见 DameAylin）。
 /// 美术占位：原版神秘骑士（mysterious_knight，甲胄人形体量感接近）。
 /// </summary>
-public sealed class Nightsong : CustomMonsterModel
+public sealed class Nightsong : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 200, 190);
 

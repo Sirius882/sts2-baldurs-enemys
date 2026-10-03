@@ -28,7 +28,7 @@ namespace baldurs_enemys.src.Monsters;
 ///   （静态贴图无 Spine，SetupSkins 覆写一并删除）。
 /// 音效沿用原版 workbug_rock 事件与 Insect 受击音（占位）。
 /// </summary>
-public sealed class Skeleton : CustomMonsterModel
+public sealed class Skeleton : BaldurMonsterModel
 {
     private const string _stunTrigger = "Stun";
 

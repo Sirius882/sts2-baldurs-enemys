@@ -43,7 +43,7 @@ namespace baldurs_enemys.src.Monsters;
 ///
 /// 两个灵光均对全体友方单位（玩家的敌人，含明萨拉自己）上 buff。
 /// </summary>
-public sealed class Minthara : CustomMonsterModel
+public sealed class Minthara : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 200, 190);
 

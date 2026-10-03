@@ -27,7 +27,7 @@ namespace baldurs_enemys.src.Monsters;
 ///
 /// 结构上直接以原版 GasBomb 为模板：同为"不会动的爆炸物"，ShouldFadeAfterDeath=false 留尸。
 /// </summary>
-public sealed class OilBarrel : CustomMonsterModel
+public sealed class OilBarrel : BaldurMonsterModel
 {
     /// <summary>血量 5，÷1.06 后四舍五入仍为 5 → 不随进阶变化。</summary>
     public override int MinInitialHp => 5;

@@ -26,7 +26,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 它死亡（无论死因）时，安苏的「被背叛」立即触发（+5 力量 + 自伤半血）——
 /// 拿剑有真实代价。
 /// </summary>
-public sealed class BalduransGiantslayer : CustomMonsterModel
+public sealed class BalduransGiantslayer : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 200, 190);
 

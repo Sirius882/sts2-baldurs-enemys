@@ -46,7 +46,7 @@ namespace baldurs_enemys.src.Monsters;
 ///
 /// 治疗量与死云术数值不吃进阶缩放（原版治疗类同样不缩放）；攻击伤害低进阶 = round(A10/1.15)。
 /// </summary>
-public sealed class Balthazar : CustomMonsterModel
+public sealed class Balthazar : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 200, 190);
 

@@ -26,7 +26,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 进阶换算（DeadlyEnemies 比例 /1.15 四舍五入）：攻击3 → 3/1.15=2.6 → 3（不变）。
 /// 四招循环 → 它每 4 回合只打 6 点，配 45 血，仍是偏辅助的输出源。
 /// </summary>
-public sealed class GoblinRanged : CustomMonsterModel
+public sealed class GoblinRanged : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 45, 42);
 

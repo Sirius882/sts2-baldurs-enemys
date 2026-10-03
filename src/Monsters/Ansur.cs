@@ -34,7 +34,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 开场自带「被背叛」：每回合 2d4 格挡；巨人杀手死亡时 +5 力量并受到半血自伤。
 /// 拾取巨剑 = 拿遗物，但安苏转为 6 连轻击并狂怒——经典取舍。
 /// </summary>
-public sealed class Ansur : CustomMonsterModel
+public sealed class Ansur : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 300, 285);
 

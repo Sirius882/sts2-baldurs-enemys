@@ -52,7 +52,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 攻击 13 → 低进阶 11（round(13/1.15)）；攻击 4 → 3；二阶段动态伤害同样按 round(值/1.15)。
 /// 强化量不吃进阶缩放。
 /// </summary>
-public sealed class KethericThorm : CustomMonsterModel
+public sealed class KethericThorm : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 300, 285);
 

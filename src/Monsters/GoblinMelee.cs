@@ -26,7 +26,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 进阶换算（DeadlyEnemies 比例 /1.15 四舍五入）：攻击3 → 3/1.15=2.6 → 3（不变）；
 /// 攻击5 → 5/1.15=4.3 → 4。
 /// </summary>
-public sealed class GoblinMelee : CustomMonsterModel
+public sealed class GoblinMelee : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 60, 57);
 

@@ -43,7 +43,7 @@ namespace baldurs_enemys.src.Monsters;
 /// - 段一意图 = 5 + (i+1) = i+6（预测时 i 尚未自增）；
 /// - 段二意图 = t + i（预测发生在自增之后）。
 /// </summary>
-public sealed class Raphael : CustomMonsterModel
+public sealed class Raphael : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 340, 323);
 

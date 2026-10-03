@@ -30,7 +30,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 开场自带「血护甲」（溢出治疗转格挡 + 格挡跨回合保留）；
 /// 「鲜血盛宴」由第一招主动获得（攻击吸血 + 任意单位死亡回血 2d8）。
 /// </summary>
-public sealed class Cazador : CustomMonsterModel
+public sealed class Cazador : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 140, 133);
 

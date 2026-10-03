@@ -39,7 +39,7 @@ namespace baldurs_enemys.src.Monsters;
 /// i 的自增（i += 2）放在 for 循环最后一个回血招的执行体末尾（治疗在增前结算，
 /// 与 C++ 语义一致：本循环内三次回血都用旧 i）。
 /// </summary>
-public sealed class MyrkulApostle : CustomMonsterModel
+public sealed class MyrkulApostle : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 250, 238);
 

@@ -24,7 +24,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 「灵魂」：每回合开始时使拉斐尔回血 2d4（每根柱子分别掷骰）——
 /// 四根柱子全场最多每回合 8d4 的治疗，先拆柱子还是先打本体是本场核心取舍。
 /// </summary>
-public sealed class SoulPillar : CustomMonsterModel
+public sealed class SoulPillar : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 80, 76);
 

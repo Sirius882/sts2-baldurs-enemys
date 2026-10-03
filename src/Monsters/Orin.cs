@@ -45,7 +45,7 @@ namespace baldurs_enemys.src.Monsters;
 /// i=0,1,2 通过、i=3 break —— 自增提前后判 i>=4 完全等价）。
 /// 人质中途死亡/被拾取 → 两个 while 条件与循环内分支同时收敛到 EMPOWER。
 /// </summary>
-public sealed class Orin : CustomMonsterModel
+public sealed class Orin : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 320, 304);
 

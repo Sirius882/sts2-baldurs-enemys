@@ -31,7 +31,7 @@ namespace baldurs_enemys.src.Monsters;
 /// 随机选择走种子 RNG 掷 1d4（在招式执行体内掷，意图恒为减益、无需预测一致性处理）；
 /// "持续 2 回合"由 TimedDebuffExpiryPower（定时消散）挂倒计时到期移除。
 /// </summary>
-public sealed class DreamGuardian : CustomMonsterModel
+public sealed class DreamGuardian : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 200, 190);
 

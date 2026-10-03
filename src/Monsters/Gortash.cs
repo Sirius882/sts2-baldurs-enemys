@@ -35,7 +35,7 @@ namespace baldurs_enemys.src.Monsters;
 ///
 /// 进场自带「班恩之诫」：每回合 1d20 格挡，骰出 20 再获得 1 层无实体。
 /// </summary>
-public sealed class Gortash : CustomMonsterModel
+public sealed class Gortash : BaldurMonsterModel
 {
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 320, 304);
 
