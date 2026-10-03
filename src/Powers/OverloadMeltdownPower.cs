@@ -19,7 +19,8 @@ namespace baldurs_enemys.src.Powers;
 ///   （各方各掷一次，整方同值；2d20 部分不含已死的自己）；
 /// - 死于自爆意图不触发（自爆动作执行前置 <see cref="SuppressExplosion"/>）；
 /// - 当受到伤害使得剩余血量不大于 20 时，立即把意图变为自爆 16
-///   （原版 StunInternal 的 SetMoveImmediate 同款机制；被眩晕打断则顺延一回合）。
+///   （用 <see cref="SteelWatcher.EnterSelfDestruct"/>，其内部走SetMoveImmediate + RefreshIntents，
+///   玩家回合内可实时看到意图变化；被眩晕打断则顺延一回合）。
 /// </summary>
 public sealed class OverloadMeltdownPower : CustomPowerModel
 {
@@ -36,21 +37,30 @@ public sealed class OverloadMeltdownPower : CustomPowerModel
 
     public override PowerStackType StackType => PowerStackType.Single;
 
-    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
+    /// <summary>
+    /// 受到伤害后若剩余血量 ≤20，则立即把意图切为自爆16。
+    ///
+    /// 本方法**同步**完成（无 await）：切意图只需要调用 <c>SetMoveImmediate</c>，
+    /// 它内部会自行 <c>TaskHelper.RunSafely(creatureNode.RefreshIntents())</c> 刷新 UI。
+    /// 故签名不写 async —— 写成 async 只会产生 CS1998 且让调用方多一次无谓的状态机开销。
+    /// </summary>
+    public override Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
         if (target != Owner || _selfDestructArmed || Owner == null || !Owner.IsAlive)
         {
-            return;
+            return Task.CompletedTask;
         }
         if (Owner.CurrentHp > SelfDestructHpThreshold)
         {
-            return;
+            return Task.CompletedTask;
         }
         _selfDestructArmed = true;
         if (Owner.Monster is SteelWatcher watcher)
         {
             watcher.EnterSelfDestruct();
         }
+
+        return Task.CompletedTask;
     }
 
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
