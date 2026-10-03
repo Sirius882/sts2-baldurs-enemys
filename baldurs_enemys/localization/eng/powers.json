@@ -53,9 +53,6 @@
   "BALDURS_ENEMYS-TIMED_DEBUFF_EXPIRY_POWER.title": "Fading",
   "BALDURS_ENEMYS-TIMED_DEBUFF_EXPIRY_POWER.description": "This debuff is removed when its stacks run out.",
   "BALDURS_ENEMYS-TIMED_DEBUFF_EXPIRY_POWER.smartDescription": "This debuff is removed when its stacks run out.",
-  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.title": "Oil Barrel Vulnerability",
-  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.description": "Damage taken from oil barrel explosions or Explosive Ampoules is tripled.",
-  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.smartDescription": "Damage taken from oil barrel explosions or Explosive Ampoules is tripled.",
   "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.title": "Imbalanced",
   "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.description": "Becomes off balance when its Headbutt is fully blocked, and cannot act next turn.",
   "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.smartDescription": "Becomes off balance when its Headbutt is fully blocked, and cannot act next turn."

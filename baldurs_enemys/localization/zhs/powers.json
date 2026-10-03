@@ -53,9 +53,6 @@
   "BALDURS_ENEMYS-TIMED_DEBUFF_EXPIRY_POWER.title": "定时消散",
   "BALDURS_ENEMYS-TIMED_DEBUFF_EXPIRY_POWER.description": "层数归零时，该减益消失。",
   "BALDURS_ENEMYS-TIMED_DEBUFF_EXPIRY_POWER.smartDescription": "层数归零时，该减益消失。",
-  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.title": "油桶易伤",
-  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.description": "受到来自油桶爆炸或爆炸安瓿的伤害变为3倍。",
-  "BALDURS_ENEMYS-OIL_BARREL_VULNERABLE.smartDescription": "受到来自油桶爆炸或爆炸安瓿的伤害变为3倍。",
   "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.title": "失衡",
   "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.description": "头槌被完全格挡时失去平衡，下一回合无法行动。",
   "BALDURS_ENEMYS-SKELETON_IMBALANCED_POWER.smartDescription": "头槌被完全格挡时失去平衡，下一回合无法行动。"
