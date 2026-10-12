@@ -42,3 +42,8 @@ Thumbs.db
 #   *.csproj / project.godot / baldurs_enemys.json / scenes/
 # 这些大文件让仓库体积约 105 MB，属于用体积换可追溯性，是有意为之。
 # 若日后需要瘦身，优先考虑用 Git LFS 存放 music/，而不是从版本控制里移除资源。
+
+# Disposable local caches
+.cache/
+__pycache__/
+*.pyc
