@@ -426,7 +426,7 @@ public override string BossNodePath => "res://images/map/placeholder/" + Id.Entr
 
 **结论：敌人与战斗 mod 的双版本适配成本很低**——真正会撞上差异的是伤害计算类接口（`ModifyDamageMultiplicative` / `ModifyDamageCap` 的 `CardPlay?` 参数等，见 Denia 的 beta 适配记录），而怪物 mod 基本不碰那些。但构建时仍要留意第 6.1 节第 10 条的输出目录覆盖问题。
 
-**另需注意（环境事实）**：游戏当前安装在 **`F:\SteamLibrary\steamapps\common\Slay the Spire 2\`**（`release_info.json` = `v0.111.0`），而仓库里的 `build_denia.bat` / `pack_denia.bat` 默认路径仍写的是 `E:\SteamLibrary\...`。新 mod 的构建脚本要么直接用 F 盘路径，要么靠 `STS2_MODS_DIR` 环境变量覆盖。
+**另需注意（环境事实）**：游戏当前安装在 **F:\SteamLibrary\steamapps\common\Slay the Spire 2\**（当前实装为 public-beta，main 需正式版依赖，不能将 main 产物部署于此覆盖 beta），BaseLib 工坊实存于 F:\SteamLibrary\steamapps\workshop\content\2868840\3737335127。新 mod 的构建脚本直接用 F 盘路径，或由 STS2_MODS_DIR 环境变量覆盖。
 
 ---
 
