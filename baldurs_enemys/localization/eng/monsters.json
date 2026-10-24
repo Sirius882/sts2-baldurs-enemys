@@ -136,5 +136,14 @@
   "BALDURS_ENEMYS-EMPEROR.moves.TENTACLE.title": "Tentacle Slam",
   "BALDURS_ENEMYS-EMPEROR.moves.MIND_STORM.title": "Psionic Storm",
   "BALDURS_ENEMYS-EMPEROR.moves.KARSUS.title": "Karsus's Compulsion",
-  "BALDURS_ENEMYS-EMPEROR.moves.RECOVER.title": "Gathering Power"
+  "BALDURS_ENEMYS-EMPEROR.moves.RECOVER.title": "Gathering Power",
+  "BALDURS_ENEMYS-OWLBEAR.name": "Great Owlbear",
+  "BALDURS_ENEMYS-OWLBEAR.moves.VIGOR.title": "Roar",
+  "BALDURS_ENEMYS-OWLBEAR.moves.MAUL.title": "Maul",
+  "BALDURS_ENEMYS-OWLBEAR.moves.MAUL_SECONDARY.title": "Raking Claws",
+  "BALDURS_ENEMYS-OWLBEAR.moves.FEED.title": "Feed the Cub",
+  "BALDURS_ENEMYS-OWLBEAR.moves.MAUL_ENRAGED.title": "Enraged Maul",
+  "BALDURS_ENEMYS-OWLBEAR.moves.THORNS.title": "Bristling Roar",
+  "BALDURS_ENEMYS-OWLBEAR_CUB.name": "Owlbear Cub",
+  "BALDURS_ENEMYS-OWLBEAR_CUB.moves.GUARD.title": "Curl Up"
 }

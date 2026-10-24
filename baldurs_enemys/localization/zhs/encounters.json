@@ -22,5 +22,7 @@
   "BALDURS_ENEMYS-RAPHAEL_BOSS.title": "拉斐尔",
   "BALDURS_ENEMYS-RAPHAEL_BOSS.loss": "{character}的灵魂被[gold]{encounter}[/gold]收进了希望之屋的收藏。",
   "BALDURS_ENEMYS-EMPEROR_BOSS.title": "君主",
-  "BALDURS_ENEMYS-EMPEROR_BOSS.loss": "{character}的心智被[gold]{encounter}[/gold]彻底吞噬。"
+  "BALDURS_ENEMYS-EMPEROR_BOSS.loss": "{character}的心智被[gold]{encounter}[/gold]彻底吞噬。",
+  "BALDURS_ENEMYS-OWLBEAR_ELITE.title": "枭熊",
+  "BALDURS_ENEMYS-OWLBEAR_ELITE.loss": "{character}被[gold]{encounter}[/gold]撕成了碎片。"
 }

@@ -136,5 +136,14 @@
   "BALDURS_ENEMYS-EMPEROR.moves.TENTACLE.title": "触手猛击",
   "BALDURS_ENEMYS-EMPEROR.moves.MIND_STORM.title": "灵能风暴",
   "BALDURS_ENEMYS-EMPEROR.moves.KARSUS.title": "卡尔萨斯强迫术",
-  "BALDURS_ENEMYS-EMPEROR.moves.RECOVER.title": "蓄势"
+  "BALDURS_ENEMYS-EMPEROR.moves.RECOVER.title": "蓄势",
+  "BALDURS_ENEMYS-OWLBEAR.name": "大枭熊",
+  "BALDURS_ENEMYS-OWLBEAR.moves.VIGOR.title": "咆哮",
+  "BALDURS_ENEMYS-OWLBEAR.moves.MAUL.title": "猛扑",
+  "BALDURS_ENEMYS-OWLBEAR.moves.MAUL_SECONDARY.title": "补一记利爪",
+  "BALDURS_ENEMYS-OWLBEAR.moves.FEED.title": "哺育幼崽",
+  "BALDURS_ENEMYS-OWLBEAR.moves.MAUL_ENRAGED.title": "暴怒猛击",
+  "BALDURS_ENEMYS-OWLBEAR.moves.THORNS.title": "荆棘战吼",
+  "BALDURS_ENEMYS-OWLBEAR_CUB.name": "小枭熊",
+  "BALDURS_ENEMYS-OWLBEAR_CUB.moves.GUARD.title": "蜷缩护崽"
 }

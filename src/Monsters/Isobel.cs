@@ -95,7 +95,7 @@ public sealed class Isobel : BaldurMonsterModel
     {
         await DamageCmd.Attack(SmiteDamage).FromMonster(this)
             .WithAttackerAnim("Attack", 0.2f)
-            .WithHitFx("vfx/vfx_attack_magic")
+            .WithHitFx("vfx/vfx_starry_impact")
             .Execute(null);
     }
 

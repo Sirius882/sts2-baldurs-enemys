@@ -22,5 +22,7 @@
   "BALDURS_ENEMYS-RAPHAEL_BOSS.title": "Raphael",
   "BALDURS_ENEMYS-RAPHAEL_BOSS.loss": "{character}'s soul was added to [gold]{encounter}[/gold]'s House of Hope collection.",
   "BALDURS_ENEMYS-EMPEROR_BOSS.title": "The Emperor",
-  "BALDURS_ENEMYS-EMPEROR_BOSS.loss": "{character}'s mind was utterly devoured by [gold]{encounter}[/gold]."
+  "BALDURS_ENEMYS-EMPEROR_BOSS.loss": "{character}'s mind was utterly devoured by [gold]{encounter}[/gold].",
+  "BALDURS_ENEMYS-OWLBEAR_ELITE.title": "Owlbear",
+  "BALDURS_ENEMYS-OWLBEAR_ELITE.loss": "{character} was torn apart by [gold]{encounter}[/gold]."
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BaseLib.Abstracts;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Potions;
@@ -12,6 +13,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Potions;
 using MegaCrit.Sts2.Core.Models.Relics;
+using baldurs_enemys.src.Core;
 using baldurs_enemys.src.Powers;
 using baldurs_enemys.src.Relics;
 
@@ -35,7 +37,12 @@ namespace baldurs_enemys.src.Cards;
 ///   同时触发奥林 +5 力量并进入杀戮者形态，见 BhaalsBlessingPower）；
 /// - 博德安的巨人杀手（安苏精英战）：变成遗物「博德安的巨人杀手」（死亡/被交互同时
 ///   触发安苏的「被背叛」，见 BetrayedPower）；
-/// - 无论哪种，成功触发交互时目标死亡都是无条件的（force:true 绕过死亡防止）。
+/// - 大枭熊（枭熊精英战）：**目标不死**。掷 1d20，≥ 14 则处决场上全部敌人 ⇒ 直接赢得
+///   本场战斗（走引擎标准胜利结算，精英战奖励照常发放）；检定失败则无事发生，
+///   由于本场每回合都会再发一张「交互」，玩家可以持续尝试；
+/// - 小枭熊（枭熊精英战）：立即死亡（force:true 绕过死亡防止），随后掷 1d20，&gt; 12
+///   则获得原版遗物「佩尔的士兵」（PaelsLegion 宠物遗物，战斗中即刻召唤助战）；
+/// - 无论哪种，除枭熊检定成功外，成功触发交互时目标死亡都是无条件的（force:true 绕过死亡防止）。
 /// </summary>
 [Pool(typeof(TokenCardPool))]
 public sealed class Interact : CustomCardModel
@@ -65,7 +72,7 @@ public sealed class Interact : CustomCardModel
 
         if (target != null)
         {
-            // 人质 / 巨人杀手：按怪物类型分流（两者都带可被交互 power，
+            // 人质 / 巨人杀手 / 枭熊：按怪物类型分流（都带可被交互 power，
             // 必须在普通交互路径之前判定）。目标死亡本身会触发各自的 Boss 联动。
             if (target.Monster is global::baldurs_enemys.src.Monsters.Hostage)
             {
@@ -74,6 +81,14 @@ public sealed class Interact : CustomCardModel
             else if (target.Monster is Monsters.BalduransGiantslayer)
             {
                 await InteractWithGiantslayer(target);
+            }
+            else if (target.Monster is Monsters.Owlbear)
+            {
+                await InteractWithOwlbear(target);
+            }
+            else if (target.Monster is Monsters.OwlbearCub)
+            {
+                await InteractWithOwlbearCub(target);
             }
             else
             {
@@ -89,8 +104,12 @@ public sealed class Interact : CustomCardModel
             }
         }
 
-        // 只要打出这张牌就结束回合（无论是否有目标、是否成功、是否触发交互）
-        PlayerCmd.EndTurn(base.Owner, canBackOut: false);
+        // 只有战斗仍在进行才结束回合：交互大枭熊检定成功时战斗已按胜利结算，
+        // 此时再 EndTurn 会对一个已结束的回合做「准备结束」标记，没有意义。
+        if (CombatManager.Instance.IsInProgress)
+        {
+            PlayerCmd.EndTurn(base.Owner, canBackOut: false);
+        }
     }
 
     /// <summary>普通交互（油桶）： suppress 死亡引爆 → 变成爆炸安瓿 → 击杀。</summary>
@@ -127,6 +146,58 @@ public sealed class Interact : CustomCardModel
     {
         await RelicCmd.Obtain(ModelDb.Relic<BalduransGiantslayer>().ToMutable(), base.Owner);
         await CreatureCmd.Kill(target, force: true);
+    }
+
+    /// <summary>
+    /// 交互大枭熊（枭熊精英战）：**不杀它**，改成一次 1d20 检定。
+    /// ≥ 14 ⇒ 处决场上全部敌人 ⇒ 引擎按标准胜利流程结算（等价于"直接获得本场战斗胜利"）。
+    /// 为什么用"清场"而不是直接调结束战斗的内部方法：`CombatManager.EndCombatInternal` 标注了
+    /// DO NOT CALL THIS，而 `IsEnding`（无存活主要敌人）→ `CheckWinCondition` 才是引擎认可的胜利入口。
+    /// 检定失败：目标完好无损、无任何效果；本场每回合都会再发一张「交互」，玩家可以持续尝试。
+    /// </summary>
+    private async Task InteractWithOwlbear(Creature target)
+    {
+        ICombatState? combatState = target.CombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+
+        int roll = Dice.Roll(combatState, 1, 20, 0);
+        if (roll < Monsters.Owlbear.InteractSuccessThreshold)
+        {
+            return;
+        }
+
+        // 处决全部存活敌人（ToList 快照：Kill 会在遍历中改动战斗名单）
+        foreach (Creature enemy in combatState.Enemies.Where(c => c.IsAlive).ToList())
+        {
+            await CreatureCmd.Kill(enemy, force: true);
+        }
+    }
+
+    /// <summary>
+    /// 交互小枭熊（枭熊精英战）：立即死亡 → 掷 1d20，&gt; 12 获得原版遗物「佩尔的士兵」。
+    /// 顺序严格按设计稿「立即死亡。然后掷 1d20」：先 Kill 再掷骰。
+    /// 必须在 Kill 之前把 combatState 取引用：目标死亡后其 CombatState 可能已被置空。
+    /// </summary>
+    private async Task InteractWithOwlbearCub(Creature target)
+    {
+        ICombatState? combatState = target.CombatState;
+
+        await CreatureCmd.Kill(target, force: true);
+
+        if (combatState == null)
+        {
+            return;
+        }
+
+        if (Dice.Roll(combatState, 1, 20, 0) > Monsters.OwlbearCub.InteractRewardThreshold)
+        {
+            // 原版 Ancient 宠物遗物：战斗中获得会立刻把「佩尔的士兵」召唤到玩家侧助战
+            // （PaelsLegion.AfterObtained 内会判断 IsInProgress 并 SummonPet）。
+            await RelicCmd.Obtain(ModelDb.Relic<PaelsLegion>().ToMutable(), base.Owner);
+        }
     }
 
     /// <summary>

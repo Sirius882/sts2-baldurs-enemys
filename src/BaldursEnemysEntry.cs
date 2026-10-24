@@ -43,6 +43,7 @@ public static class BaldursEnemysEntry
 
         // ---- 遭遇（必须显式构造，否则不入池）----
         _ = new MintharaBoss();      // 第一层 Boss
+        _ = new OwlbearElite();      // 第一层精英
         _ = new YurgElite();         // 第二层精英
         _ = new BalthazarElite();    // 第二层精英
         _ = new KethericThormBoss(); // 第二层 Boss
@@ -85,6 +86,8 @@ public static class BaldursEnemysEntry
         _ = new Raphael();
         _ = new DreamGuardian();
         _ = new Emperor();
+        _ = new Owlbear();
+        _ = new OwlbearCub();
 
         // ---- power ----
         _ = new InteractablePower();
