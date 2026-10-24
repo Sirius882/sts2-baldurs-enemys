@@ -31,7 +31,10 @@ public sealed class PsionicShieldPower : CustomPowerModel
 
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (side != CombatSide.Enemy || Owner == null || !Owner.IsAlive)
+        // 在玩家能攻击之前提供本轮护盾，与原版 Rampart 的时机一致；
+        // 敌方回合开始才发放会让第 2 个玩家回合仍没有护盾。
+        if (side != CombatSide.Player || CombatManager.Instance.PlayersTakingExtraTurn.Count > 0
+            || Owner == null || !Owner.IsAlive)
         {
             return;
         }
