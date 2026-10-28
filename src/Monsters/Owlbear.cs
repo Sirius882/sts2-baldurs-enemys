@@ -54,15 +54,10 @@ namespace baldurs_enemys.src.Monsters;
 ///   （含施加当回合末），rounds=2 施加完当回合末剩 1、下一敌方回合末才归零移除，
 ///   即"下一个敌方回合内仍生效"，正是设计稿的"持续 1 回合"。写 rounds=1 会当回合末立刻被移除（无效）。
 ///
-/// 附带 power：可被交互（<see cref="InteractablePower"/>）——
-/// 被打出「交互」后掷 1d20，≥ 14 则玩家直接赢得本场战斗（检定失败可在后续回合继续尝试），
-/// 分流逻辑在 <see cref="baldurs_enemys.src.Cards.Interact"/>。
+/// 大枭熊不可被交互；枭熊战仅小枭熊可被交互。
 /// </summary>
 public sealed class Owlbear : BaldurMonsterModel
 {
-    /// <summary>「交互」检定阈值：1d20 ≥ 该值即直接获胜（设计稿 ≥14）。</summary>
-    public const int InteractSuccessThreshold = 14;
-
     public override int MinInitialHp => AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 140, 133);
 
     public override int MaxInitialHp => MinInitialHp;
@@ -72,13 +67,6 @@ public sealed class Owlbear : BaldurMonsterModel
     /// <summary>美术：mod 自带立绘（baldurs_enemys/images/monsters/owl_bear.png）。</summary>
     public override NCreatureVisuals? CreateCustomVisuals() =>
         BaldurVisuals.Create("res://baldurs_enemys/images/monsters/owl_bear.png", 310);
-
-    /// <summary>可被交互：必须在进房时挂（照抄油桶），这样动态生成的枭熊也能正确获得该标记。</summary>
-    public override async Task AfterAddedToRoom()
-    {
-        await base.AfterAddedToRoom();
-        await PowerCmd.Apply<InteractablePower>(new ThrowingPlayerChoiceContext(), base.Creature, 1m, base.Creature, null);
-    }
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
@@ -155,7 +143,8 @@ public sealed class Owlbear : BaldurMonsterModel
 
     private async Task MaulMove(IReadOnlyList<Creature> targets)
     {
-        await DamageCmd.Attack(Balthazar.ScaleDeadly(4)).FromMonster(this)
+        await DamageCmd.Attack(Balthazar.ScaleDeadly(4)).WithHitCount(3).FromMonster(this)
+            .OnlyPlayAnimOnce()
             .WithAttackerAnim("Attack", 0.2f)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(null);
@@ -163,7 +152,8 @@ public sealed class Owlbear : BaldurMonsterModel
 
     private async Task MaulSecondaryMove(IReadOnlyList<Creature> targets)
     {
-        await DamageCmd.Attack(Balthazar.ScaleDeadly(3)).FromMonster(this)
+        await DamageCmd.Attack(Balthazar.ScaleDeadly(3)).WithHitCount(3).FromMonster(this)
+            .OnlyPlayAnimOnce()
             .WithAttackerAnim("Attack", 0.2f)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(null);
@@ -184,7 +174,8 @@ public sealed class Owlbear : BaldurMonsterModel
 
     private async Task MaulEnragedMove(IReadOnlyList<Creature> targets)
     {
-        await DamageCmd.Attack(Balthazar.ScaleDeadly(6)).FromMonster(this)
+        await DamageCmd.Attack(Balthazar.ScaleDeadly(6)).WithHitCount(3).FromMonster(this)
+            .OnlyPlayAnimOnce()
             .WithAttackerAnim("Attack", 0.25f)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(null);

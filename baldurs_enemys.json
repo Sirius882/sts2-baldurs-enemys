@@ -3,7 +3,7 @@
   "name": "Baldur's Gate 3 Enemies",
   "author": "Claude Play",
   "description": "Adds Baldur's Gate 3 themed enemies and 14 custom encounters across all three acts: the Owlbear elite and Minthara (act 1 boss), Yurg / Balthazar elites plus Ketheric Thorm and the Myrkul Apostle (act 2), and the Viconia / Cazador / Ansur elites plus Orin / Gortash / Raphael / Emperor bosses (act 3). Features 26 monsters with unique art, an original \"Interact\" mechanic with 2 exclusive relics, 14 original BGM tracks, and full Chinese + English localization. Requires BaseLib.",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "min_game_version": "0.111.0",
   "has_pck": true,
   "has_dll": true,

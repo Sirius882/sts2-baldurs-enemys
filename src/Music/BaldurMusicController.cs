@@ -20,10 +20,10 @@ namespace baldurs_enemys.src.Music;
 /// 1. 指明战斗名称的曲目与对应战斗互相专属，不参与随机：
 ///    明萨拉 / 凯瑟里克 / 巴萨扎尔 / 奥林 / 安苏 / 拉斐尔。
 /// 2. 无专属 BGM 的 mod Boss 按所在层走对应 Boss 曲池：第二层米尔寇从「第二层boss1」中
-///    随机，第三层戈塔什 / 君主从「第三层boss1/2/3」中随机（2026-10-25 起米尔寇从第三层池拆出）。
+///    随机，第三层戈塔什 / 君主从「第三层boss1/2/3」和新增曲目中随机（2026-10-25 起米尔寇从第三层池拆出）。
 /// 3. 其他所有 mod 战斗（维康妮亚 / 卡扎多尔 / 尤格）从「其他非boss战斗1/2」中随机。
 /// 4. 火堆 / 先古之民 / 通关结算（建筑师）房间：从「火堆、先古、通关bgm1/2/3」中随机
-///    （2026-10-25 起第三层的先古房间改用专属曲目「第三层先古房间」，与「第三层boss3」同曲），
+///    （第三层先古房间也使用此和平曲池；新增曲目仅用于 Boss 房间），
 ///    **叠加**在原版音效之上——原版这三处本来只有进入/休息/锻造等音效、没有 BGM，
 ///    所以是「保留原版音效 + 额外加 BGM」，不是「替换原版音乐」。
 ///    实现上只把 FMOD 的 music 总线音量压到 0 来避免与原版 act 音乐叠加，**从不销毁任何
@@ -135,6 +135,7 @@ public static class BaldurMusicController
         Dir + "act3_boss_1.mp3",
         Dir + "act3_boss_2.mp3",
         Dir + "act3_boss_3.mp3",
+        Dir + "act3_ancient.mp3", // 沿用资源文件名；此曲属于第三层 Boss 曲池。
     ];
 
     /// <summary>第二层 Boss 曲池（「第二层boss1」，音频与凯瑟里克专属曲相同——用户 2026-10-25 指定）。</summary>
@@ -142,9 +143,6 @@ public static class BaldurMusicController
     [
         Dir + "act2_boss_1.mp3",
     ];
-
-    /// <summary>第三层先古房间专属曲（「第三层先古房间」，音频与第三层boss3相同——用户 2026-10-25 指定）。</summary>
-    private const string TrackAct3Ancient = Dir + "act3_ancient.mp3";
 
     private static readonly string[] NormalBattlePool =
     [
@@ -321,13 +319,8 @@ public static class BaldurMusicController
         AbstractRoom? room = _runState?.CurrentRoom;
         if (room == null) return null;
 
-        // 先古之民房间（每层起始点）：第三层改用专属曲目（2026-10-25）。
+        // 先古之民房间（每层起始点）：所有层共用和平曲池。
         bool isAncientRoom = room is EventRoom ancientRoom && ancientRoom.CanonicalEvent is AncientEventModel;
-        if (isAncientRoom && InAct(2))
-        {
-            return [TrackAct3Ancient];
-        }
-
         // 火堆 / 先古之民 / 通关结算（建筑师）：原版这三处只有音效、没有 BGM，
         // 所以保留原版音效、直接叠加 mod BGM（接管时只把 BGM 总线音量压到 0）。
         if (room.RoomType == RoomType.RestSite
@@ -349,7 +342,7 @@ public static class BaldurMusicController
             }
 
             // 无专属的 mod Boss：按所在层走 Boss 曲池——第二层（米尔寇）走「第二层boss1」，
-            // 第三层（戈塔什 / 君主）走「第三层boss1/2/3」（2026-10-25 起米尔寇从第三层池拆出）
+            // 第三层（戈塔什 / 君主）走「第三层boss1/2/3」及新增曲目（2026-10-25 起米尔寇从第三层池拆出）
             if (encounter.RoomType == RoomType.Boss)
             {
                 return InAct(1) ? Act2BossPool : Act3BossPool;

@@ -1,4 +1,4 @@
 {
   "BALDURS_ENEMYS-INTERACT.title": "Interact",
-  "BALDURS_ENEMYS-INTERACT.description": "Interact with an enemy marked Interactable. The effect depends on the target:\nOil Barrel -> an Explosive Ampoule; Nightsong -> interact twice for Dame Aylin; Hostage -> Looming Fruit + Lees Waffle; Giantslayer -> its own relic.\nOwlbear -> roll 1d20: on 14+ you win the combat outright (retry on failure). Owlbear Cub -> it dies, then roll 1d20: on 13+ gain Pael's Legion.\nEnd your turn."
+  "BALDURS_ENEMYS-INTERACT.description": ""
 }
